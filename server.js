@@ -22,7 +22,7 @@ app.get("/api", (req, res) => {
   res.json({ hello: "world" });
 });
 
-app.use("/api/users", require("./routes/api/usersRoutes"));
+app.use("/product", require("./routes/api/productsRouter"));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests

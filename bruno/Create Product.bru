@@ -1,0 +1,20 @@
+meta {
+  name: Create Product
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/product/product/new
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Toy",
+    "description": "nice toy",
+    "price": 123,
+    "picture": "abc"  
+  }
+}
