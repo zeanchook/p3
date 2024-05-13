@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "p3",
+  "name": "sei-50-mern",
   "type": "collection",
   "ignore": [
     "node_modules",
