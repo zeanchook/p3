@@ -1,0 +1,18 @@
+meta {
+  name: Create OrderLine
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3000/product/66437634e28e59e815435276/orderLine/664313a936ca534dab48fa6d
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "orderQty": 1,
+    "product_id": "6643148336ca534dab48fa6f"
+  }
+}

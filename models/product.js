@@ -10,7 +10,7 @@ const productSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const userSchema = new Schema(
@@ -20,27 +20,55 @@ const userSchema = new Schema(
     address: { type: Number, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
+    orders: {},
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const orderLineSchema = new Schema({
-  product_id: [{ type: Schema.Types.ObjectId, ref: "Product" }],
-  orderQty: { type: Number, required: true, default: 1 },
+const orderLineSchema = new Schema(
+  {
+    product_id: { type: Schema.Types.ObjectId, ref: "Product" },
+    orderQty: { type: Number, required: true, default: 1 },
+  },
+  { toJSON: { virtuals: true } },
+);
+
+orderLineSchema.virtual("extPrice").get(function () {
+  return this.orderQty * this.product_id.price;
 });
 
 const orderSchema = new Schema(
   {
-    user_id: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    user_id: { type: Schema.Types.ObjectId, ref: "User" },
     paidStatus: { type: Boolean, required: true, default: false },
     orderLine: [orderLineSchema],
   },
   {
     timestamps: true,
-  }
+    toJSON: { virtuals: true },
+  },
 );
+
+orderSchema.virtual("orderTotal").get(function () {
+  return this.orderLine.reduce((total, item) => total + item.extPrice, 0);
+});
+
+orderSchema.virtual("totalQty").get(function () {
+  return this.orderLine.reduce((total, item) => total + item.orderQty, 0);
+});
+
+// orderSchema.virtual('orderId').get(function () {
+//   return this.id.slice(-6).toUpperCase();
+// });
+
+orderSchema.methods.populateProducts = function () {
+  return this.populate({
+    path: "orderLine.product_id",
+    select: "name price", // you can specify the fields you want to include in the returned documents
+  });
+};
 
 module.exports = {
   Product: mongoose.model("Product", productSchema),

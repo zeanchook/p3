@@ -12,7 +12,15 @@ router.post("/", productController.createUser);
 // router.post("/login", usersCtrl.login);
 
 router.get("/order/:orderId", orderController.getOrder);
+
+//userId passedinto it to get order to reflect cart status
+router.get("/:userId", productController.getUserOrders);
+
+// ! Need to think better routes
+//create orderline
 router.post("/order/new/:userId", orderController.createOrder);
+router.post("/:orderId/orderLine/:productId", orderController.createOrderLine);
+
 // router.get("/products", productController.productListing);
 
 module.exports = router;
