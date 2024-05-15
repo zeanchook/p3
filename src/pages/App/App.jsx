@@ -7,9 +7,9 @@ import { Route, Routes } from "react-router-dom";
 // import NewOrderPage from "../NewOrderPage/NewOrderPage";
 // import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 
-import ProductDetailsPage from "../ProductDetailPage/ProductDetailsPage"
-import CartCheckOut from "../CartCheckout/CartCheckOut"
-import CheckOutPage from "../CheckoutPage/CheckOutPage"
+import ProductDetailsPage from "../ProductDetailPage/ProductDetailsPage";
+import CartCheckOut from "../CartCheckout/CartCheckOut";
+import CheckOutPage from "../CheckoutPage/CheckOutPage";
 
 // const log = debug("mern:pages:App:App");
 
@@ -31,9 +31,12 @@ function App() {
         {/* <NavBar setUser={setUser} /> */}
 
         <Routes>
-          <Route path="/product/:id" element={<ProductDetailsPage />} />
+          <Route path="/product/:productId" element={<ProductDetailsPage />} />
           <Route path="/user/:name/:orderid/cart" element={<CartCheckOut />} />
-          <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />} />
+          <Route
+            path="/user/:name/:orderid/checkout"
+            element={<CheckOutPage />}
+          />
           {/* <Route path="/orders/new" element={<NewOrderPage />} /> */}
 
           {/* <Route path="/orders2" element={<OrderHistoryPage />}>
