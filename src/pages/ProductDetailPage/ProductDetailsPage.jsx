@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddToCart from "../../components/AddToCart";
+import debug from "debug";
+
+const log = debug("mern:pages:ProductDetailsPage");
 
 export default function ProductDetailsPage() {
   const [product, setProduct] = useState(null);
@@ -14,13 +17,11 @@ export default function ProductDetailsPage() {
       setError(null);
 
       try {
-        console.log(`Fetching product with ID: ${productId}`);
+        log(`Fetching product with ID: ${productId}`);
         const response = await fetch(`/api/product/product/${productId}`);
 
-        console.log(`Response status: ${response.status}`);
-        console.log(
-          `Response content-type: ${response.headers.get("content-type")}`
-        );
+        log(`Response status: ${response.status}`);
+        log(`Response content-type: ${response.headers.get("content-type")}`);
 
         if (!response.ok) {
           throw new Error(
@@ -67,7 +68,7 @@ export default function ProductDetailsPage() {
       <div>{product.price}</div>
       <div>{product.description}</div>
       <hr />
-      <AddToCart product={product} />
+      <AddToCart productId={productId} />
     </>
   );
 }
