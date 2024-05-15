@@ -23,4 +23,6 @@ router.post("/:orderId/orderLine/:productId", orderController.createOrderLine);
 
 // router.get("/products", productController.productListing);
 
+router.get("checkout/:orderId/", orderController.getUserByOrderId );
+
 module.exports = router;
