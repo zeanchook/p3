@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 export default function CheckOutPage() {
 	//not sure if we'll be using these states, just setting them here as I work out how to display data from the customer fetches
 	const { orderid } = useParams();
-	const [customerId, setCustomerId] = useState(null);
 	const [customerDetails, setCustomerDetails] = useState(null);
-	console.log(customerId,setCustomerId,setCustomerDetails) //can be removed
+
+	console.log(setCustomerDetails) //can be removed
+
 	useEffect(() => {
-		const fetchCustomerId = async () => {
+		const fetchCustomerDetails = async () => {
 			try {
                 console.log(orderid)
                 const url = `/api/product/checkout/${orderid}`;
@@ -18,13 +19,13 @@ export default function CheckOutPage() {
                 console.log("test1",response)
 				const data = await response.json();
                 console.log("data",data)
-				// setCustomerId(data);
+				setCustomerDetails(data)
 			} catch (error) {
 				console.error('Error fetching user details:', error);
 			}
 		};
 
-		fetchCustomerId();
+		fetchCustomerDetails();
 	}, [orderid]);
 
 	// Checkout button: handlePlaceOrderClick
