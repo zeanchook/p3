@@ -1,5 +1,8 @@
 const Data = require("../../models/product");
 
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const index = async (req, res) => {
   try {
     const products = await Data.Product.find({});
@@ -41,14 +44,20 @@ const createProduct = async (req, res) => {
 };
 
 const getOrder = async (req, res) => {
-  const products = await Data.Order.find();
+  const products = await Data.Order.find({}).populate({
+    path: "orderLine.product_id",
+    model: "Product",
+  });
   res.status(201).json(products);
 };
+
+//user section
+const createJWT = (user) =>
+  jwt.sign({ user }, process.env.SECRET, { expiresIn: "1h" });
 
 const createUser = async (req, res) => {
   const { name, email, address, username, password } = req.body;
   try {
-    console.log(req.body);
     const user = await Data.User.create({
       name,
       email,
@@ -56,9 +65,31 @@ const createUser = async (req, res) => {
       username,
       password,
     });
-    res.status(201).json(user);
+    const token = createJWT(user);
+    res.status(201).json(token);
   } catch (error) {
     res.status(401).json({ error });
+  }
+};
+
+const userLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await Data.User.findOne({ email });
+
+  if (user === null) {
+    res.status(401).json({ msg: "User not found" });
+    return;
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+  console.log(password, user.password);
+  console.log(match);
+
+  if (match) {
+    const token = createJWT(user);
+    res.json(token);
+  } else {
+    res.status(401).json({ msg: "Password incorrect" });
   }
 };
 
@@ -75,13 +106,18 @@ const createOrder = async (req, res) => {
 };
 
 const createOrderLine = async (req, res) => {
-  const { orderId } = req.params;
+  const { orderId, productId } = req.params;
   const body = req.body;
   const Order = await Data.Order.findById(orderId);
   // const Order = await Data.Order.find({})
+  console.log("here");
   console.log("Order", Order);
+  console.log("body is here", body);
+  body.product_id = productId;
+  console.log(body);
   Order.orderLine.push(body);
   Order.save();
+  // console.log(Order)
 
   const newData = await Data.Order.findById({ _id: orderId }).populate({
     path: "orderLine.product_id",
@@ -130,5 +166,6 @@ module.exports = {
   createUser,
   createOrderLine,
   getUserOrders,
-  getUserByOrderId,
+getUserByOrderId,
+  userLogin,
 };

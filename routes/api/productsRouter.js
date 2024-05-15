@@ -8,8 +8,9 @@ router.get("/home", productController.index);
 router.get("/product/:productId", productController.productDetails);
 router.post("/product/new", productController.createProduct);
 
+//user section
 router.post("/", productController.createUser);
-// router.post("/login", usersCtrl.login);
+router.post("/login", productController.userLogin);
 
 router.get("/order/:orderId", orderController.getOrder);
 
