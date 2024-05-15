@@ -7,9 +7,9 @@ import AuthPage from "../AuthPage/AuthPage";
 // import NewOrderPage from "../NewOrderPage/NewOrderPage";
 // import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 
-import ProductDetailsPage from "../ProductDetailPage/ProductDetailsPage"
-import CartCheckOut from "../CartCheckout/CartCheckOut"
-import CheckOutPage from "../CheckoutPage/CheckOutPage"
+import ProductDetailsPage from "../ProductDetailPage/ProductDetailsPage";
+import CartCheckOut from "../CartCheckout/CartCheckOut";
+import CheckOutPage from "../CheckoutPage/CheckOutPage";
 
 import { createContext } from "react";
 export const DataContext = createContext();
@@ -38,7 +38,7 @@ function App() {
         <NavBar />
 
         <Routes>
-          <Route path="/product/:id" element={<ProductDetailsPage />} />
+          <Route path="/product/:productId" element={<ProductDetailsPage />} />
           <Route path="/user/:name/:orderid/cart" element={<CartCheckOut />} />
           <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />} />
         </Routes>
