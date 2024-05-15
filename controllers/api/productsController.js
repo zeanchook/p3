@@ -142,19 +142,20 @@ const getUserOrders = async (req, res) => {
 //get user id and details
 
 const getUserByOrderId = async (req, res) => {
-	const { orderId } = req.params;
-	try {
-		const order = await Data.Order.findById(orderId).populate('user_id');
-		if (!order) {
-			console.log(`Order not found for orderId: ${orderId}`);
-			return res.status(404).json({ message: 'Order not found' });
-		}
-		console.log(`Order found: ${order}`);
-		res.status(200).json(order.user_id);
-	} catch (error) {
-		console.error(`Error fetching user by order ID: ${error}`);
-		res.status(500).json({ message: 'Error fetching user by order ID' });
-	}
+  const { orderId } = req.params;
+  // console.log("testhere")
+  try {
+    const order = await Data.Order.findById(orderId).populate("user_id");
+    if (!order) {
+      console.log(`Order not found for orderId: ${orderId}`);
+      return res.status(404).json({ message: "Order not found" });
+    }
+    console.log(`Order found: ${order}`);
+    res.status(200).json(order.user_id);
+  } catch (error) {
+    console.error(`Error fetching user by order ID: ${error}`);
+    res.status(500).json({ message: "Error fetching user by order ID" });
+  }
 };
 
 module.exports = {
@@ -166,6 +167,6 @@ module.exports = {
   createUser,
   createOrderLine,
   getUserOrders,
-getUserByOrderId,
+  getUserByOrderId,
   userLogin,
 };

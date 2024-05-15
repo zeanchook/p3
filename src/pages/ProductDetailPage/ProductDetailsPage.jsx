@@ -27,7 +27,7 @@ export default function ProductDetailsPage() {
             `Failed to fetch product: ${response.status} ${response.statusText}`
           );
         }
-
+        
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
           throw new Error("Received non-JSON response");

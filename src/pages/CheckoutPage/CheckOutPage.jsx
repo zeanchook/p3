@@ -1,25 +1,31 @@
 import { useParams } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CheckOutPage() {
 	//not sure if we'll be using these states, just setting them here as I work out how to display data from the customer fetches
-	const { orderId } = useParams();
+	const { orderid } = useParams();
 	const [customerId, setCustomerId] = useState(null);
 	const [customerDetails, setCustomerDetails] = useState(null);
-
+	console.log(customerId,setCustomerId,setCustomerDetails) //can be removed
 	useEffect(() => {
 		const fetchCustomerId = async () => {
 			try {
-				const response = await fetch(`../../routes/api/checkout/${orderId}`);
+                console.log(orderid)
+                const url = `/api/product/checkout/${orderid}`;
+				const response = await fetch(url);
+                console.log(response)
+                // const response = await fetch(`/api/product/checkout/${orderid}`);
+                console.log("test1",response)
 				const data = await response.json();
-				setCustomerId(data);
+                console.log("data",data)
+				// setCustomerId(data);
 			} catch (error) {
 				console.error('Error fetching user details:', error);
 			}
 		};
 
 		fetchCustomerId();
-	}, [orderId]);
+	}, [orderid]);
 
 	// Checkout button: handlePlaceOrderClick
 	/* async function handlePlaceOrderClick(){

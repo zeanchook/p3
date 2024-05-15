@@ -1,4 +1,5 @@
 import { getCartDetails } from "../../utilities/getCartDetails"
+// import { useParams } from 'react-router-dom';
 
 import { useContext, useEffect, useState } from "react";
 
@@ -6,9 +7,14 @@ import { DataContext } from "../App/App";
 
 export default function CartCheckOut()
 {
-  const contextPassed = useContext(DataContext);
+  const userDetails = useContext(DataContext);
+  const { _id } = userDetails;
+  const userid = _id;
+
+  console.log(userid)
+
   const [cartState, setCartState] = useState("");
-  console.log(contextPassed)
+  
   const style = {
       display:"flex",
       background:"yellow",
