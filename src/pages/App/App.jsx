@@ -6,6 +6,7 @@ import { getUser } from '../../utilities/users-service';
 import AuthPage from '../AuthPage/AuthPage';
 // import NewOrderPage from "../NewOrderPage/NewOrderPage";
 // import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
+import UserProfile from './UserProfile/UserProfile';
 import HomePage from '../HomePage/HomePage';
 import ProductListingPage from "../ProductListingPage/ProductListingPage"
 import ProductDetailsPage from '../ProductDetailPage/ProductDetailsPage';
@@ -35,11 +36,11 @@ function App() {
     <Routes>
       <Route path="/home" element={<HomePage />}/>
       <Route path="/products" element={<ProductListingPage />}/>
+      <Route path="/user/:name" element={<UserProfile />}/>
       <Route path="/product/:productId" element={<ProductDetailsPage />}/>
       <Route path="/user/cart" element={<CartCheckOut />} />
       <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />}/>
     </Routes>)
-
   }
 }
 

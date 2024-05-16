@@ -147,7 +147,7 @@ const getUserOrders = async (req, res) => {
 
 const getUserByOrderId = async (req, res) => {
   const { orderId } = req.params;
-  // console.log("testhere")
+  console.log("testhere");
   try {
     const order = await Data.Order.findById(orderId).populate("user_id");
     if (!order) {

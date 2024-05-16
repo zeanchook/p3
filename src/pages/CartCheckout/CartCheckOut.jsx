@@ -33,7 +33,7 @@ export default function CartCheckOut()
       async function getDetails()
         {
             let results = await getCartDetails(userid);
-            setCartState(results)
+            setCartState(results);
         }
         getDetails();   
     }, [userid]);
