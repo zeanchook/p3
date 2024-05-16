@@ -13,7 +13,6 @@ export default function ProductListingPage()
         async function getDetails()
           {
               let results = await getListofProducts();
-
               results = results?.sort( (b,a) => 
               {
                   if(a.createdAt > b.createdAt) 

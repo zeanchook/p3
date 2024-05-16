@@ -26,10 +26,11 @@ export default function CheckOutPage() {
 		fetchCustomerDetails();
 	}, [orderid]);
 
+	console.log(orderDetails)
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 		try {
-			const url = `api/product/${name}`
+			const url = `/api/product/checkout/${name}`
 			console.log("username", name)
 			const response = await fetch(url);
 			console.log("order details", response)
@@ -38,7 +39,7 @@ export default function CheckOutPage() {
 			setOrderDetails(data);
 		} catch (error) {
 			console.error('Error fetching order details:', error);
-		};}
+		}}
 
 		fetchOrderDetails();
 	}, [orderid]);
@@ -76,7 +77,7 @@ export default function CheckOutPage() {
 				<h2>Order Summary</h2>
 				<ul>
 					{orderDetails &&
-						orderDetails.orderLine.map((item, index) => (
+						orderDetails?.orderLine?.map((item, index) => (
 							<li key={index}>
 								<span>{item.product_id?.title}</span>
 								<span>x {item.orderQty}</span>
