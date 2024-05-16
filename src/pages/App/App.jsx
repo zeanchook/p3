@@ -17,7 +17,7 @@ export const DataContext = createContext();
 const log = debug('mern:pages:App:App');
 
 function App() {
-	const [user, setUser] = useState(true);
+	const [user, setUser] = useState(getUser());
 
 	log('user %o', user);
 	console.log(user);

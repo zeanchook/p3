@@ -1,6 +1,9 @@
-export const getCartDetails = async () => {
-  const url = `/api/product/order/66437634e28e59e815435276`;
+export const getCartDetails = async (userid) => {
+  //orderController.getOrder
+  const url = `/api/product/${userid}`;
   const response = await fetch(url);
   const myResults = await response.json();
   return myResults;
 };
+
+// get cart details using user Id
