@@ -93,40 +93,58 @@ const userLogin = async (req, res) => {
   }
 };
 
-const createOrder = async (req, res) => {
-  const { userId } = req.params;
-  try {
-    const product = await Data.Order.create({});
-    product.user_id = userId;
-    product.save();
-    res.status(201).json(product);
-  } catch (error) {
-    res.status(401).json({ error });
-  }
-};
+// const createOrder = async (req, res) => {
+//   try {
+//     const { userId, productId } = req.params;
+//     const orderQty = req.body.orderQty || 1;
+//     const order = new Data.Order({
+//       user_id: userId,
+//       orderLine: [{ product_id: productId, orderQty }],
+//     });
+//     await order.save();
+//     return res
+//       .status(201)
+//       .json({ message: "Order created successfully", order });
+//   } catch (error) {
+//     console.error("Error creating order:", error);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
 
-const createOrderLine = async (req, res) => {
-  const { orderId, productId } = req.params;
-  const body = req.body;
-  const Order = await Data.Order.findById(orderId);
-  // const Order = await Data.Order.find({})
-  console.log("here");
-  console.log("Order", Order);
-  console.log("body is here", body);
-  body.product_id = productId;
-  console.log(body);
-  Order.orderLine.push(body);
-  Order.save();
-  // console.log(Order)
+// const createOrder = async (req, res) => {
+//   const { userId } = req.params;
+//   try {
+//     const product = await Data.Order.create({});
+//     product.user_id = userId;
+//     product.save();
+//     res.status(201).json(product);
+//   } catch (error) {
+//     res.status(401).json({ error });
+//   }
+// };
 
-  const newData = await Data.Order.findById({ _id: orderId }).populate({
-    path: "orderLine.product_id",
-    model: "Product",
-  });
+// const createOrderLine = async (req, res) => {
+//   const { orderId, productId } = req.params;
+//   const body = req.body;
+//   const Order = await Data.Order.findById(orderId);
+//   // const Order = await Data.Order.find({})
+//   console.log("here");
+//   console.log("Order", Order);
+//   console.log("body is here", body);
+//   body.product_id = productId;
+//   console.log(body);
+//   Order.orderLine.push(body);
+//   Order.save();
+//   // console.log(Order)
 
-  console.log(newData);
-  res.status(201).json(newData);
-};
+//   const newData = await Data.Order.findById({ _id: orderId }).populate({
+//     path: "orderLine.product_id",
+//     model: "Product",
+//   });
+
+//   console.log(newData);
+//   res.status(201).json(newData);
+// };
 
 const getUserOrders = async (req, res) => {
   const { userId } = req.params;
@@ -167,9 +185,9 @@ module.exports = {
   productDetails,
   createProduct,
   getOrder,
-  createOrder,
+  // createOrder,
   createUser,
-  createOrderLine,
+  // createOrderLine,
   getUserOrders,
   getUserByOrderId,
   userLogin,
