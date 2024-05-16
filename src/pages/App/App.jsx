@@ -7,9 +7,13 @@ import AuthPage from "../AuthPage/AuthPage";
 // import NewOrderPage from "../NewOrderPage/NewOrderPage";
 // import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 
-import ProductDetailsPage from "../ProductDetailPage/ProductDetailsPage";
-import CartCheckOut from "../CartCheckout/CartCheckOut";
-import CheckOutPage from "../CheckoutPage/CheckOutPage";
+
+import HomePage from '../HomePage/HomePage';
+import ProductListingPage from "../ProductListingPage/ProductListingPage"
+import ProductDetailsPage from '../ProductDetailPage/ProductDetailsPage';
+import CartCheckOut from '../CartCheckout/CartCheckOut';
+import CheckOutPage from '../CheckoutPage/CheckOutPage';
+
 
 import { createContext } from "react";
 export const DataContext = createContext();
@@ -17,6 +21,7 @@ export const DataContext = createContext();
 const log = debug("mern:pages:App:App");
 
 function App() {
+
   const [user, setUser] = useState(true);
 
   log("user %o", user);
@@ -37,10 +42,10 @@ function App() {
         <main className="App">
           <NavBar />
           <Routes>
-            {/* <Route
+            {<Route
               path="/product/:productId"
               element={<ProductDetailsPage />}
-            /> */}
+            />}
             <Route
               path="/product/:productId/:userId"
               element={<ProductDetailsPage />}
@@ -55,6 +60,7 @@ function App() {
       </DataContext.Provider>
     </>
   );
+
 }
 
 export default App;

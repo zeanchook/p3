@@ -1,5 +1,7 @@
 import { getCartDetails } from "../../utilities/getCartDetails"
+import debug from 'debug';
 // import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { useContext, useEffect, useState } from "react";
 
@@ -7,11 +9,15 @@ import { DataContext } from "../App/App";
 
 export default function CartCheckOut()
 {
+  const log = debug('mern:pages:CartCheckout:CartCheckout');
+
   const userDetails = useContext(DataContext);
   const { _id } = userDetails;
   const userid = _id;
 
-  console.log(userid)
+  const navigate = useNavigate();
+
+  log('user %o', userid);
 
   const [cartState, setCartState] = useState("");
   
@@ -21,29 +27,28 @@ export default function CartCheckOut()
       alignItems:"center",
       justifyContent:"center",
       flexDirection:"column",
-      maxWidth:"500px"};
-
-    // console.log(getCartDetails());
+      maxWidth:"1000px"};
 
     useEffect(() => {
       async function getDetails()
         {
-            let results = await getCartDetails();
+            let results = await getCartDetails(userid);
             setCartState(results)
         }
         getDetails();   
-    }, []);
+    }, [userid]);
 
     //! input with user ID
     console.log(cartState)
       
     const subtotal = cartState[0]?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0);
-    // const subtotal = 0;
+    
     const DisplayItems = () =>
     {
         return cartState[0]?.orderLine?.map((item, index) => (
             <tr key={index} style={{ textAlign: "center" }}>
               <td>{index + 1}</td>
+              <td><img src={item.product_id.picture} alt="img"></img></td>
               <td>{item.product_id.title}</td>
               <td>{item.orderQty}</td>
               <td>
@@ -58,20 +63,21 @@ export default function CartCheckOut()
     const handleCheckout = () =>
     {
         //!navigate
-        console.log("checkout")
+        navigate("/user/:name/:orderid/checkout")
     }
 
     return(
-        <div style={style}>
+      <div style={style}>
       <h2>Your Cart</h2>
-      <table border="1">
+      <table border="02" className="table-auto">
         <thead >
           <tr >
+            <th>S/N</th>
             <th>Product</th>
             <th>Name</th>
             <th>Qty</th>
             <th>Add/Remove</th>
-            <th>Price</th>
+            <th >Price</th>
           </tr>
         </thead>
         <tbody >
@@ -83,3 +89,4 @@ export default function CartCheckOut()
     </div>
     )
 }
+
