@@ -36,14 +36,13 @@ function App() {
       <DataContext.Provider value={user}>
         <main className="App">
           <NavBar />
-
           <Routes>
             {/* <Route
-							path="/product/:productId"
-							element={<ProductDetailsPage />}
-						/> */}
-            <Route
               path="/product/:productId"
+              element={<ProductDetailsPage />}
+            /> */}
+            <Route
+              path="/product/:productId/:userId"
               element={<ProductDetailsPage />}
             />
             <Route path="/user/cart" element={<CartCheckOut />} />

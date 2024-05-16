@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import debug from "debug";
 
 const log = debug("mern:pages:AddToCart");
 
 export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
+  const { userId } = useParams();
 
   console.log(productId);
-  const userId = "6644c1099fbe48e26e5525e8";
+  // const userId = "6644c1099fbe48e26e5525e8";
 
   function handleIncreaseQty() {
     setQuantity((prevQuantity) => prevQuantity + 1);

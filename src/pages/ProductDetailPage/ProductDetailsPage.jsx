@@ -10,7 +10,6 @@ export default function ProductDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { productId } = useParams();
-  // const { userId } = useParams();
 
   useEffect(() => {
     async function loadProduct() {
