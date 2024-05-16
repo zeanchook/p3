@@ -73,18 +73,16 @@ console.log(name)
 
 			<div>
 				<h2>Order Summary</h2>
-				<ul>
-					{orderDetails &&
-
-						orderDetails.orderLine?.map((item, index) => { return (
-
+				<div>
+					{orderDetails && orderDetails[0].orderLine?.map((item, index) => {return(
 							<li key={index}>
-								<span>{item.product_id.title}</span>
+								<span>test</span>
+								<span>{item.product_id.title}test</span>
 								<span> x {item.orderQty}</span>
 								<span>${item.product_id.price * item.orderQty}</span>
 							</li>
 						)})}
-				</ul>
+				</div>
 				<p>Total: ${orderDetails && orderDetails[0].orderTotal}</p>
 			</div>
 
