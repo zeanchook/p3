@@ -130,9 +130,13 @@ const createOrderLine = async (req, res) => {
 
 const getUserOrders = async (req, res) => {
   const { userId } = req.params;
+  console.log(userId);
   try {
     console.log(userId);
-    const User = await Data.Order.find({ user_id: userId });
+    const User = await Data.Order.find({ user_id: userId }).populate({
+      path: "orderLine.product_id",
+      model: "Product",
+    });
     res.status(201).json(User);
   } catch (error) {
     res.status(401).json({ error });
