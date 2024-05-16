@@ -10,6 +10,7 @@ export default function ProductDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { productId } = useParams();
+  // const { userId } = useParams();
 
   useEffect(() => {
     async function loadProduct() {
@@ -18,7 +19,8 @@ export default function ProductDetailsPage() {
 
       try {
         log(`Fetching product with ID: ${productId}`);
-        const response = await fetch(`/api/product/product/${productId}`);
+        const response = await fetch(`/api/product/${productId}`);
+        // const response = await fetch(`/api/product/product/${productId}`);
 
         log(`Response status: ${response.status}`);
         log(`Response content-type: ${response.headers.get("content-type")}`);
@@ -28,7 +30,7 @@ export default function ProductDetailsPage() {
             `Failed to fetch product: ${response.status} ${response.statusText}`
           );
         }
-        
+
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
           throw new Error("Received non-JSON response");
@@ -69,6 +71,7 @@ export default function ProductDetailsPage() {
       <div>{product.description}</div>
       <hr />
       <AddToCart productId={productId} />
+      {/* <AddToCart productId={productId} userId={userId} /> */}
     </>
   );
 }

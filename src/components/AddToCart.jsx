@@ -6,10 +6,8 @@ const log = debug("mern:pages:AddToCart");
 export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
 
-  //!change userId
-  const userId = "6644c1099fbe48e26e5525e8";
-
   console.log(productId);
+  const userId = "6644c1099fbe48e26e5525e8";
 
   function handleIncreaseQty() {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -26,14 +24,14 @@ export default function AddToCart({ productId }) {
       user_id: userId,
       orderLines: [
         {
-          product_id: "6644b6a79fbe48e26e5525dd",
+          product_id: productId,
           orderQty: quantity,
         },
       ],
     };
-    log(`Adding ${quantity}  to the cart`);
+    log(`Adding ${quantity} ${productId} to the cart`);
 
-    fetch("/api/orders", {
+    fetch(`/api/orders/${userId}/${productId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
