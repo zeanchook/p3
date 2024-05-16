@@ -26,12 +26,14 @@ console.log(name)
 		fetchCustomerDetails();
 	}, [orderid]);
 
+	console.log(orderDetails)
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 		try {
+
 			const url = `/api/product/order/${orderid}`
 			console.log("username", orderid)
-			const response = await fetch(url);
+		const response = await fetch(url);
 			console.log("order details", response)
 			const data = await response.json();
 			console.log('data', data);
@@ -73,7 +75,9 @@ console.log(name)
 				<h2>Order Summary</h2>
 				<ul>
 					{orderDetails &&
+
 						orderDetails.orderLine?.map((item, index) => { return (
+
 							<li key={index}>
 								<span>{item.product_id.title}</span>
 								<span> x {item.orderQty}</span>
