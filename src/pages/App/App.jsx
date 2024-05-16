@@ -47,8 +47,8 @@ function App() {
 		<>
 			{/* replace if possible */}
 			<DataContext.Provider value={user}>
-				<main className="App">
-					<NavBar />
+        <NavBar />
+				<main className="App" style={{display:"flex",justifyContent:"center",alignItems:"center",alignContent:"center",flexDirection:"column"}}>	
 					<MainAuth/>
 				</main>
 			</DataContext.Provider>

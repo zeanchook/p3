@@ -27,7 +27,7 @@ export default function CartCheckOut()
       alignItems:"center",
       justifyContent:"center",
       flexDirection:"column",
-      maxWidth:"500px"};
+      maxWidth:"1000px"};
 
     useEffect(() => {
       async function getDetails()
@@ -67,9 +67,9 @@ export default function CartCheckOut()
     }
 
     return(
-        <div style={style}>
+      <div style={style}>
       <h2>Your Cart</h2>
-      <table border="1">
+      <table border="02" className="table-auto">
         <thead >
           <tr >
             <th>S/N</th>
@@ -77,7 +77,7 @@ export default function CartCheckOut()
             <th>Name</th>
             <th>Qty</th>
             <th>Add/Remove</th>
-            <th>Price</th>
+            <th >Price</th>
           </tr>
         </thead>
         <tbody >
@@ -89,3 +89,4 @@ export default function CartCheckOut()
     </div>
     )
 }
+
