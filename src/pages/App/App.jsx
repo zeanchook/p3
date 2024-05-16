@@ -11,6 +11,7 @@ import ProductListingPage from "../ProductListingPage/ProductListingPage"
 import ProductDetailsPage from '../ProductDetailPage/ProductDetailsPage';
 import CartCheckOut from '../CartCheckout/CartCheckOut';
 import CheckOutPage from '../CheckoutPage/CheckOutPage';
+import OrderConfirmationPage from '../OrderConfirmationPage/OrderConfirmationPage';
 
 import { createContext } from 'react';
 export const DataContext = createContext();
@@ -38,6 +39,7 @@ function App() {
       <Route path="/product/:productId" element={<ProductDetailsPage />}/>
       <Route path="/user/cart" element={<CartCheckOut />} />
       <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />}/>
+	  <Route path="/user/:name/:orderid/thankyou" element={<OrderConfirmationPage />}/>
     </Routes>)
 
   }
