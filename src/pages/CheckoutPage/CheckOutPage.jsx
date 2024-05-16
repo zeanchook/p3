@@ -6,7 +6,7 @@ export default function CheckOutPage() {
 	const { name, orderid } = useParams();
 	const [customerDetails, setCustomerDetails] = useState(null);
 	const [orderDetails, setOrderDetails] = useState(null);
-
+console.log(name)
 
 	useEffect(() => {
 		const fetchCustomerDetails = async () => {
@@ -29,24 +29,21 @@ export default function CheckOutPage() {
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 		try {
-			const url = `api/product/${name}`
-			console.log("username", name)
+			const url = `/api/product/order/${orderid}`
+			console.log("username", orderid)
 			const response = await fetch(url);
 			console.log("order details", response)
 			const data = await response.json();
 			console.log('data', data);
 			setOrderDetails(data);
-		} catch (error) {
+			} catch (error) {
 			console.error('Error fetching order details:', error);
-		};}
+		}}
 
 		fetchOrderDetails();
 	}, [orderid]);
 
-	// Checkout button: handlePlaceOrderClick
-	/* async function handlePlaceOrderClick(){
 
-} */
 
 	return (
 		<>
@@ -76,15 +73,15 @@ export default function CheckOutPage() {
 				<h2>Order Summary</h2>
 				<ul>
 					{orderDetails &&
-						orderDetails.orderLine.map((item, index) => (
+						orderDetails.orderLine?.map((item, index) => { return (
 							<li key={index}>
-								<span>{item.product_id?.title}</span>
-								<span>x {item.orderQty}</span>
+								<span>{item.product_id.title}</span>
+								<span> x {item.orderQty}</span>
 								<span>${item.product_id.price * item.orderQty}</span>
 							</li>
-						))}
+						)})}
 				</ul>
-				<p>Total: ${orderDetails?.orderTotal}</p>
+				<p>Total: ${orderDetails && orderDetails[0].orderTotal}</p>
 			</div>
 
 			<div>
