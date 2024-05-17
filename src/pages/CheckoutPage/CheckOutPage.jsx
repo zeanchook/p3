@@ -46,11 +46,10 @@ export default function CheckOutPage() {
 
 	async function handlePlaceOrderClick() {
 		try {
-			const url = `/api/product/${orderid}/paid`;
-			const response = await fetch(url, {
+			const response = await fetch(`/api/product/${orderid}/${name}/paid`, {
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ paidStatus: true }),
+				body: JSON.stringify({}),
 			});
 
 			if (!response.ok) {

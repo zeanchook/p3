@@ -18,6 +18,9 @@ router.get("/order/:orderId", productController.getOrder);
 //userId passedinto it to get order to reflect cart status
 router.get("/:userId", productController.getUserOrders);
 
+//get orderIds under the userId
+router.get("/:userId/orders", productController.getUserOrdersById);
+
 // ! Need to think better routes
 //create orderline
 // router.post("/order/new/:userId", orderController.createOrder);
@@ -27,6 +30,6 @@ router.get("/:userId", productController.getUserOrders);
 // router.get("/products", productController.productListing);
 // router.get("/checkin/", productController.getUserByOrderId);
 router.get("/checkout/:orderId", productController.getUserByOrderId);
-router.patch("/:orderId/paid", productController.updateOrderPaid);
+router.patch("/:orderId/:userId/paid", productController.updateOrderPaid);
 
 module.exports = router;
