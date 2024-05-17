@@ -27,5 +27,7 @@ router.get("/:userId", productController.getUserOrders);
 // router.get("/products", productController.productListing);
 // router.get("/checkin/", productController.getUserByOrderId);
 router.get("/checkout/:orderId", productController.getUserByOrderId);
+router.patch("/:orderId/paid", orderController.updateOrderPaid);
+
 
 module.exports = router;

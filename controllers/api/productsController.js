@@ -180,6 +180,34 @@ const getUserByOrderId = async (req, res) => {
   }
 };
 
+const updateOrderPaid = async (req, res) => {
+  const { orderId } = req.params;
+  const updatedData = req.body;
+
+  try {
+    const order = await Data.Order.findById(
+      orderId,
+      { paidStatus: true },
+      { new: true },
+    );
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    const updatedOrder = await Data.Order.findByIdAndUpdate(
+      orderId,
+      updatedData,
+      { new: true },
+    );
+    if (!updatedOrder) {
+      return res.status(500).json({ message: "Error updating order" });
+    }
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating order" });
+  }
+};
+
 module.exports = {
   index,
   productDetails,
@@ -191,4 +219,5 @@ module.exports = {
   getUserOrders,
   getUserByOrderId,
   userLogin,
+  updateOrderPaid,
 };
