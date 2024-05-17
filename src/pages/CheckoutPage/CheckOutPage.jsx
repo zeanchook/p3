@@ -14,8 +14,6 @@ export default function CheckOutPage() {
 				console.log('order', orderid);
 				const url = `/api/product/checkout/${orderid}`;
 				const response = await fetch(url);
-				/* 	console.log(response); */
-				// const response = await fetch(`/api/product/checkout/${orderid}`);
 				const data = await response.json();
 				setCustomerDetails(data);
 			} catch (error) {
@@ -46,11 +44,10 @@ export default function CheckOutPage() {
 
 	async function handlePlaceOrderClick() {
 		try {
-			const url = `/api/product/${orderid}/paid`;
-			const response = await fetch(url, {
+			const response = await fetch(`/api/product/${orderid}/${name}/paid`, {
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ paidStatus: true }),
+				body: JSON.stringify({}),
 			});
 
 			if (!response.ok) {
