@@ -57,7 +57,7 @@ const createJWT = (user) =>
   jwt.sign({ user }, process.env.SECRET, { expiresIn: "1h" });
 
 const createUser = async (req, res) => {
-  const { name, email, address, username, password } = req.body;
+  const { name, email, address, username, password, orders } = req.body;
   try {
     const user = await Data.User.create({
       name,
@@ -65,6 +65,7 @@ const createUser = async (req, res) => {
       address,
       username,
       password,
+      orders,
     });
     const token = createJWT(user);
     res.status(201).json(token);
@@ -192,6 +193,56 @@ const getUserByOrderId = async (req, res) => {
   }
 };
 
+//updates the order and user data when place order button is pushed
+
+const updateOrderPaid = async (req, res) => {
+  const { orderId, userId } = req.params;
+  const updatedData = { paidStatus: true, ...req.body };
+
+  try {
+    const updatedOrder = await Data.Order.findByIdAndUpdate(
+      orderId,
+      updatedData,
+      { new: true },
+    );
+    if (!updatedOrder) {
+      return res.status(500).json({ message: "Error updating order" });
+    }
+
+    const user = await Data.User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { orders: orderId } },
+      { new: true },
+    );
+
+    if (!user) {
+      return res.status(500).json({ message: "Error updating user" });
+    }
+
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating order" });
+  }
+};
+
+const getUserOrdersById = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await Data.User.findById(userId, "orders");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user.orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error retrieving user orders" });
+  }
+};
+
 module.exports = {
   index,
   productDetails,
@@ -203,4 +254,6 @@ module.exports = {
   getUserOrders,
   getUserByOrderId,
   userLogin,
+  updateOrderPaid,
+  getUserOrdersById,
 };
