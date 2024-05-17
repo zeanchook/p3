@@ -8,7 +8,6 @@ export default function CheckOutPage() {
 	const [customerDetails, setCustomerDetails] = useState(null);
 	const [orderDetails, setOrderDetails] = useState(null);
 	const goToResults = useNavigate();
-	
 
 	useEffect(() => {
 		const fetchCustomerDetails = async () => {
@@ -27,20 +26,22 @@ export default function CheckOutPage() {
 
 		fetchCustomerDetails();
 	}, [orderid]);
-
+  
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 		try {
+
 			const url = `/api/product/${name}`
 			console.log("username", name)
 			const response = await fetch(url);
+
+			console.log("order details", response)
 			const data = await response.json();
 			console.log('data', data);
 			setOrderDetails(data);
-		} catch (error) {
+			} catch (error) {
 			console.error('Error fetching order details:', error);
 		}}
-
 		fetchOrderDetails();
 	}, [orderid]);
 
@@ -62,7 +63,7 @@ export default function CheckOutPage() {
 		} catch (error) {console.error('Error updating order details:', error);
 		}
 	  }
-	  
+
 	return (
 	<>
 			<div className="">
