@@ -1,15 +1,22 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import debug from "debug";
+import { useContext,useState,useEffect } from "react";
+// import debug from "debug";
+import { DataContext } from "../pages/App/App";
 
-const log = debug("mern:pages:AddToCart");
+
+import {useAtom} from "jotai"
+import { cartItems } from "../../atom";
+
+import { getCartDetails } from "../utilities/cart-service"
+import { handleCart } from "../utilities/cartHandler";
+
+// const log = debug("mern:pages:AddToCart");
 
 export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
-  const { userId } = useParams();
 
-  console.log(productId);
-  // const userId = "6644c1099fbe48e26e5525e8";
+  const userDetails = useContext(DataContext);
+
+  const [cartState,setCartState] = useAtom(cartItems);
 
   function handleIncreaseQty() {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -18,39 +25,24 @@ export default function AddToCart({ productId }) {
   function handleDecreaseQty() {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
+      
     }
   }
 
-  function handleAddToCart() {
-    const orderData = {
-      user_id: userId,
-      orderLines: [
-        {
-          product_id: productId,
-          orderQty: quantity,
-        },
-      ],
-    };
-    log(`Adding ${quantity} ${productId} to the cart`);
+const handleAddToCart = async (event) =>
+{
+  setCartState(await handleCart(event.target.name,cartState,quantity,productId))
+}
 
-    fetch(`/api/orders/${userId}/${productId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Order created successfully");
-        } else {
-          throw new Error("Failed to create order");
-        }
-      })
-      .catch((error) => {
-        console.error("Error creating order:", error);
-      });
-  }
+  useEffect(() => {
+    async function getDetails()
+      {
+          let results = await getCartDetails(userDetails._id);
+          const finder = results?.findIndex(item => item.paidStatus === false)
+          setCartState(results[finder]);
+      }
+      getDetails();   
+  }, [setCartState, userDetails._id]);
 
   return (
     <div>
@@ -59,7 +51,7 @@ export default function AddToCart({ productId }) {
       <button onClick={handleIncreaseQty}>+</button>
       <button onClick={handleDecreaseQty}>-</button>
       <br />
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button onClick={handleAddToCart} name="addcart">Add to Cart</button>
     </div>
   );
 }

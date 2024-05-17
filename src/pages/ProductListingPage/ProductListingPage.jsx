@@ -1,7 +1,9 @@
 import { getListofProducts } from "../../utilities/getListofProducts";
 import { useNavigate } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import debug from "debug";
+
 
 export default function ProductListingPage() {
   const [prodResults, setprodResults] = useState("");
@@ -21,6 +23,7 @@ export default function ProductListingPage() {
         return 0;
       });
       setprodResults(results);
+
     }
     getDetails();
   }, []);

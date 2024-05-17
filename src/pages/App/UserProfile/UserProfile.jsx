@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../App";
-import { getCartDetails } from "../../../utilities/getCartDetails"
+import { getCartDetails } from "../../../utilities/cart-service"
 // import { PaperClipIcon } from '@heroicons/react/20/solid'
 
 

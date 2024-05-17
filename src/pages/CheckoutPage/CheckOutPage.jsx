@@ -91,6 +91,7 @@ export default function CheckOutPage() {
 
 			<div>
 				<h2>Order Summary</h2>
+
 				<table>
 					<thead>
 						<tr>
@@ -111,6 +112,7 @@ export default function CheckOutPage() {
 					</tbody>
 				</table>
 				<p>Order Total: ${orderDetails && orderDetails[0].orderTotal}</p>
+
 			</div>
 
 			<div>
