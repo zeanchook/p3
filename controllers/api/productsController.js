@@ -17,6 +17,7 @@ const productDetails = async (req, res) => {
   try {
     const { productId } = req.params;
     const product = await Data.Product.findById(productId);
+    console.log("this");
     // .populate('product');  need to use at orderline
     res.status(201).json(product);
   } catch (error) {
