@@ -1,33 +1,31 @@
-import { getCartDetails } from "../../utilities/getCartDetails"
-import debug from 'debug';
+import { getCartDetails } from "../../utilities/cart-service"
+// import debug from 'debug';
 // import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-// import { produce } from "immer";
 
-// import {useAtom} from "jotai"
-// import { testAtom } from "../../../atom";
 
-import { useContext, useEffect, useState } from "react";
+import {useAtom} from "jotai"
+import { cartItems } from "../../../atom";
+
+import { useContext, useEffect } from "react";
+
+import { handleCart,deleteCart } from "../../utilities/cartHandler";
 
 import { DataContext } from "../App/App";
 
 export default function CartCheckOut()
 {
-  const log = debug('mern:pages:CartCheckout:CartCheckout');
+  // const log = debug('mern:pages:CartCheckout:CartCheckout');
 
   const userDetails = useContext(DataContext);
-  const { _id } = userDetails;
-  const userid = _id;
+  // const { _id } = userDetails;
+  // const userid = _id;
 
   const navigate = useNavigate();
-
-  // const [value,setValue] = useAtom(testAtom)
-  // console.log(value)
-
-  log('user %o', userid);
-
-  const [cartState, setCartState] = useState("");
+  const [cartStates,setCartState] = useAtom(cartItems);
   
+  // log('user %o', userid);
+
   const style = {
       display:"flex",
       background:"yellow",
@@ -36,47 +34,45 @@ export default function CartCheckOut()
       flexDirection:"column",
       maxWidth:"1000px"};
 
-    function handleIncreaseQty(event) {
-      // setQuantity((prevQuantity) => prevQuantity + 1);
-      console.log(event.target.value)
-    }
-  
-    function handleDecreaseQty() {
-      // if (quantity > 1) {
-      //   // setQuantity((prevQuantity) => prevQuantity - 1);
-      // }
+    const handleQty = async (event) => {
+      setCartState(await handleCart("NA",cartStates,parseInt(event.target.value),event.target.name))
     }
 
+    const handleRemove = async(event) =>
+    {
+      setCartState(deleteCart(event.target.name,cartStates))
+    }
+
+    console.log(cartStates)
     useEffect(() => {
       async function getDetails()
         {
-            let results = await getCartDetails(userid);
-
+            let results = await getCartDetails(userDetails._id);
             const finder = results?.findIndex(item => item.paidStatus === false)
-            console.log(finder)
-            console.log(results);
-            setCartState(results);
+            setCartState(results[finder]);
         }
         getDetails();   
-    }, [userid]);
+    }, [setCartState, userDetails._id]);
 
-    //! input with user ID
-    // console.log(cartState)
-      
-    const subtotal = cartState[0]?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0);
+
+    const subtotal = cartStates?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0);
     
     const DisplayItems = () =>
     {
-        return cartState[0]?.orderLine?.map((item, index) => (
+        if(cartStates?.orderLine?.length === 0)
+        {
+          return ("Please at least add some item !")
+        }
+        return cartStates?.orderLine?.map((item, index) => (
             <tr key={index} style={{ textAlign: "center" }}>
               <td>{index + 1}</td>
               <td><img src={item.product_id.picture} alt="img" style={{width:"50%"}}></img></td>
               <td>{item.product_id.title}</td>
               <td>{item.orderQty}</td>
               <td>
-              <button onClick={handleIncreaseQty} value={item.orderQty}>+</button>
-              <button onClick={handleDecreaseQty}>-</button>
-                <button>Remove</button>
+              <button onClick={handleQty} name={item.product_id._id} value="1">+</button>
+              <button onClick={handleQty} name={item.product_id._id} value="-1">-</button>
+              <button onClick={handleRemove} name={item.product_id._id}>Remove</button>
               </td>
               <td>${item.extPrice}</td>
             </tr>

@@ -1,28 +1,23 @@
 import { useContext,useState,useEffect } from "react";
 // import debug from "debug";
 import { DataContext } from "../pages/App/App";
-import { produce } from "immer";
+
 
 import {useAtom} from "jotai"
 import { cartItems } from "../../atom";
 
-import { getCartDetails,updateCartDetails,createCartDetails } from "../utilities/getCartDetails"
+import { getCartDetails } from "../utilities/cart-service"
+import { handleCart } from "../utilities/cartHandler";
 
 // const log = debug("mern:pages:AddToCart");
 
 export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
-  const [orderId, setOrderID] = useState("")
-
-  // const [value,setValue] = useAtom(cartItems)
 
   const userDetails = useContext(DataContext);
 
-  const [cartState,setCartState] = useAtom(cartItems)
+  const [cartState,setCartState] = useAtom(cartItems);
 
-  console.log(productId);
-  // const userId = "6644c1099fbe48e26e5525e8";
-  
   function handleIncreaseQty() {
     setQuantity((prevQuantity) => prevQuantity + 1);
   }
@@ -34,48 +29,17 @@ export default function AddToCart({ productId }) {
     }
   }
 
-  //patch, post
-  function handleAddToCart() {
-    const orderLineFinder = cartState?.findIndex(item => item.product_id._id === productId || item.product_id === productId)
-    console.log(cartState)
-    // patch
-    if(orderLineFinder!== -1){
-      const nextState = produce(cartState, (draft) => {
-        // console.log(cartState)
-        draft[orderLineFinder].orderQty += quantity;
-    });
-    console.log(nextState[orderLineFinder])
-    updateCartDetails(nextState[orderLineFinder]);
-    // patchResult.then(function(result) {
-    //     // console.log(result)
-    //  })
-    setCartState(nextState);
-    }  
-    else{
-      const orderLine= 
-        {
-          product_id: productId,
-          orderQty: quantity,
-        }
-    createCartDetails(orderId,orderLine);
-    //   createdResult.then(function(result) {
-    //   console.log(result.orderLine)
-    //  })
-     const nextState = produce(cartState, (draft) => {
-      draft.push(orderLine)
-  });
-    setCartState(nextState);
-    }
+const handleAddToCart = async (event) =>
+{
+  setCartState(await handleCart(event.target.name,cartState,quantity,productId))
 }
 
   useEffect(() => {
     async function getDetails()
       {
           let results = await getCartDetails(userDetails._id);
-          // console.log(results)
           const finder = results?.findIndex(item => item.paidStatus === false)
-          setOrderID(results[finder]._id)
-          setCartState(results[finder].orderLine);
+          setCartState(results[finder]);
       }
       getDetails();   
   }, [setCartState, userDetails._id]);
@@ -87,7 +51,7 @@ export default function AddToCart({ productId }) {
       <button onClick={handleIncreaseQty}>+</button>
       <button onClick={handleDecreaseQty}>-</button>
       <br />
-      <button onClick={handleAddToCart}>Add to Cart</button>
+      <button onClick={handleAddToCart} name="addcart">Add to Cart</button>
     </div>
   );
 }
