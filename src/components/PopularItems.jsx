@@ -1,7 +1,11 @@
+import ProductListingPage from "../pages/ProductListingPage/ProductListingPage";
+
 export default function PopularItems() {
   return (
     <>
-      <div>popular items</div>
+      <h1>Popular Items</h1>
+      {/* limit item number */}
+      <ProductListingPage />
     </>
   );
 }

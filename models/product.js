@@ -9,6 +9,7 @@ const productSchema = new Schema(
     description: { type: String },
     price: { type: Number },
     picture: { type: String },
+    ranking: { type: Number, default: 6 },
   },
   {
     timestamps: true,
