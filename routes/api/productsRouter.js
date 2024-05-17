@@ -13,7 +13,7 @@ router.post("/product/new", productController.createProduct);
 router.post("/", productController.createUser);
 router.post("/login", productController.userLogin);
 
-// router.get("/order/:orderId", orderController.getOrder);
+router.get("/order/:orderId", productController.getOrder);
 
 //userId passedinto it to get order to reflect cart status
 router.get("/:userId", productController.getUserOrders);
@@ -27,7 +27,6 @@ router.get("/:userId", productController.getUserOrders);
 // router.get("/products", productController.productListing);
 // router.get("/checkin/", productController.getUserByOrderId);
 router.get("/checkout/:orderId", productController.getUserByOrderId);
-router.patch("/:orderId/paid", orderController.updateOrderPaid);
-
+router.patch("/:orderId/paid", productController.updateOrderPaid);
 
 module.exports = router;
