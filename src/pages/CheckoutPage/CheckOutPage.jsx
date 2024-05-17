@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CheckOutPage() {
 	//not sure if we'll be using these states, just setting them here as I work out how to display data from the customer fetches
-	const { orderid } = useParams();
+	const { name, orderid } = useParams();
 	const [customerDetails, setCustomerDetails] = useState(null);
 	const [orderDetails, setOrderDetails] = useState(null);
 	const goToResults = useNavigate();
@@ -59,7 +59,7 @@ export default function CheckOutPage() {
 		  if (!response.ok) {
 			throw new Error('Error updating order status');
 		  }	
-		  goToResults('/user/:name/:orderid/thankyou');
+		  goToResults(`/user/${name}/${orderid}/thankyou`);
 		} catch (error) {console.error('Error updating order details:', error);
 		}
 	  }
