@@ -12,6 +12,7 @@ export default function OrderConfirmationPage() {
 			<br></br>
 			<p>Your order ID is {orderid}</p>
 			<br></br>
+
 			<div>
 				<h3>Here are your order details:</h3>
 				<table>
