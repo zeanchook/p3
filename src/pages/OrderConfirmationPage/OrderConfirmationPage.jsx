@@ -10,7 +10,7 @@ export default function OrderConfirmationPage() {
 		<>
 			<h1>Thank You For Your Order, {customerDetails.name}!</h1>
 			<br></br>
-			<p>Your order ID is {orderid}</p>
+			<p>Your order ID: {orderid}</p>
 			<br></br>
 
 			<div>

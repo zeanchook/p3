@@ -22,7 +22,7 @@ export default function UserProfile() {
 		fetchOrderIds();
 	}, [name]);
 
-	//fetch order data
+	//fetch order datas
 	//button function to display order when clicked
 
 	return (

@@ -14,8 +14,6 @@ export default function CheckOutPage() {
 				console.log('order', orderid);
 				const url = `/api/product/checkout/${orderid}`;
 				const response = await fetch(url);
-				/* 	console.log(response); */
-				// const response = await fetch(`/api/product/checkout/${orderid}`);
 				const data = await response.json();
 				setCustomerDetails(data);
 			} catch (error) {
