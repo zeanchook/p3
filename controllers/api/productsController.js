@@ -148,15 +148,26 @@ const userLogin = async (req, res) => {
 
 const getUserOrders = async (req, res) => {
   const { userId } = req.params;
-  console.log(userId);
+  console.log("this", userId);
   try {
-    console.log(userId);
     const User = await Data.Order.find({ user_id: userId }).populate({
       path: "orderLine.product_id",
       model: "Product",
     });
-    res.status(201).json(User);
+    console.log("157", User.length);
+
+    if (User.length === 0) {
+      const newOrder = await Data.Order.create({});
+      newOrder.user_id = userId;
+      newOrder.save();
+      console.log("here?", newOrder);
+      res.status(201).json([newOrder]);
+    } else {
+      res.status(201).json(User);
+    }
+    // res.redirect(301, "new-url");
   } catch (error) {
+    console.log("here is the err", error);
     res.status(401).json({ error });
   }
 };

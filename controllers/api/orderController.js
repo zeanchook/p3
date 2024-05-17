@@ -1,21 +1,40 @@
 const Data = require("../../models/product");
 
-const createOrder = async (req, res) => {
+const updateOrder = async (req, res) => {
   try {
-    const { userId, productId } = req.params;
-    const orderQty = req.body.orderLines[0].orderQty || 1;
-    const order = new Data.Order({
-      user_id: userId,
-      orderLine: [{ product_id: productId, orderQty }],
-    });
-    await order.save();
+    console.log("HELLLLLO");
+    console.log("here", req.body);
+    const testing123 = await Data.Order.updateOne(
+      {
+        "orderLine.product_id": req.body.product_id,
+      },
+      {
+        $set: {
+          "orderLine.$.orderQty": req.body.orderQty,
+        },
+      },
+    );
+
     return res
       .status(201)
-      .json({ message: "Order created successfully", order });
+      .json({ message: "Order created successfully", testing123 });
   } catch (error) {
     console.error("Error creating order:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-module.exports = { createOrder };
+const createOrderLine = async (req, res) => {
+  const { orderId } = req.params;
+  const body = req.body;
+  const Order = await Data.Order.findById(orderId);
+  Order.orderLine.push(body);
+  Order.save();
+  const newData = await Data.Order.findById({ _id: orderId }).populate({
+    path: "orderLine.product_id",
+    model: "Product",
+  });
+  res.status(201).json(newData);
+};
+
+module.exports = { updateOrder, createOrderLine };

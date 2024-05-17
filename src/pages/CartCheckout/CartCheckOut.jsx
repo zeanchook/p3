@@ -33,6 +33,7 @@ export default function CartCheckOut()
       async function getDetails()
         {
             let results = await getCartDetails(userid);
+            console.log(results)
             setCartState(results);
         }
         getDetails();   

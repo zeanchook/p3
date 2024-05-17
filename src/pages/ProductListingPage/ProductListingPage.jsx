@@ -1,6 +1,7 @@
 import { getListofProducts } from "../../utilities/getListofProducts"
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
+// import { DataContext } from "../App/App";
 import debug from 'debug';
 
 export default function ProductListingPage()
@@ -8,6 +9,10 @@ export default function ProductListingPage()
     const [prodResults,setprodResults] = useState("")
     const log = debug('mern:pages:ProductListingPage:ProductListingPage');
     const navigate = useNavigate();
+
+    // const userDetails = useContext(DataContext);
+    // const { _id } = userDetails;
+    // const userid = _id;
 
     useEffect(() => {
         async function getDetails()
