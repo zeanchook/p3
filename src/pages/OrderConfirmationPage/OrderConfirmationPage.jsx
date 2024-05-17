@@ -1,24 +1,17 @@
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-export default function OrderConfirmationPage({ orderDetails }) {
-	const { name, orderid } = useParams();
-
-	console.log(name, orderid);
-
-	/*  const {custName, setCustName} = userState(null);
-	 */
-	/*    
-  useEffect(() => {
-    async function fetchUserName() {
-      const user = await custName.findById(name);
-      setCustName(user);
-    }
-    fetchUserName();
-  }, [name]); */
+export default function OrderConfirmationPage() {
+	const location = useLocation();
+	const { orderid } = useParams();
+	const { orderDetails, customerDetails } = location.state;
 
 	return (
 		<>
-			<h1>Thank You For Your Order!</h1>
+			<h1>Thank You For Your Order, {customerDetails.name}!</h1>
+			<br></br>
+			<p>Your order ID is {orderid}</p>
+			<br></br>
 
 			<div>
 				<h3>Here are your order details:</h3>
