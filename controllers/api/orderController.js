@@ -7,6 +7,7 @@ const updateOrder = async (req, res) => {
     const testing123 = await Data.Order.updateOne(
       {
         "orderLine.product_id": req.body.product_id,
+        "orderLine._id": req.body._id,
       },
       {
         $set: {

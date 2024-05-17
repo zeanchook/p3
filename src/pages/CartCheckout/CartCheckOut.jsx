@@ -2,6 +2,10 @@ import { getCartDetails } from "../../utilities/getCartDetails"
 import debug from 'debug';
 // import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+// import { produce } from "immer";
+
+// import {useAtom} from "jotai"
+// import { testAtom } from "../../../atom";
 
 import { useContext, useEffect, useState } from "react";
 
@@ -17,6 +21,9 @@ export default function CartCheckOut()
 
   const navigate = useNavigate();
 
+  // const [value,setValue] = useAtom(testAtom)
+  // console.log(value)
+
   log('user %o', userid);
 
   const [cartState, setCartState] = useState("");
@@ -29,18 +36,32 @@ export default function CartCheckOut()
       flexDirection:"column",
       maxWidth:"1000px"};
 
+    function handleIncreaseQty(event) {
+      // setQuantity((prevQuantity) => prevQuantity + 1);
+      console.log(event.target.value)
+    }
+  
+    function handleDecreaseQty() {
+      // if (quantity > 1) {
+      //   // setQuantity((prevQuantity) => prevQuantity - 1);
+      // }
+    }
+
     useEffect(() => {
       async function getDetails()
         {
             let results = await getCartDetails(userid);
-            console.log(results)
+
+            const finder = results?.findIndex(item => item.paidStatus === false)
+            console.log(finder)
+            console.log(results);
             setCartState(results);
         }
         getDetails();   
     }, [userid]);
 
     //! input with user ID
-    console.log(cartState)
+    // console.log(cartState)
       
     const subtotal = cartState[0]?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0);
     
@@ -49,12 +70,13 @@ export default function CartCheckOut()
         return cartState[0]?.orderLine?.map((item, index) => (
             <tr key={index} style={{ textAlign: "center" }}>
               <td>{index + 1}</td>
-              <td><img src={item.product_id.picture} alt="img"></img></td>
+              <td><img src={item.product_id.picture} alt="img" style={{width:"50%"}}></img></td>
               <td>{item.product_id.title}</td>
               <td>{item.orderQty}</td>
               <td>
-                <button>+</button>
-                <button>-</button>
+              <button onClick={handleIncreaseQty} value={item.orderQty}>+</button>
+              <button onClick={handleDecreaseQty}>-</button>
+                <button>Remove</button>
               </td>
               <td>${item.extPrice}</td>
             </tr>

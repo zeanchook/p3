@@ -3,6 +3,9 @@ import { useContext,useState,useEffect } from "react";
 import { DataContext } from "../pages/App/App";
 import { produce } from "immer";
 
+import {useAtom} from "jotai"
+import { cartItems } from "../../atom";
+
 import { getCartDetails,updateCartDetails,createCartDetails } from "../utilities/getCartDetails"
 
 // const log = debug("mern:pages:AddToCart");
@@ -11,10 +14,11 @@ export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
   const [orderId, setOrderID] = useState("")
 
+  // const [value,setValue] = useAtom(cartItems)
 
   const userDetails = useContext(DataContext);
 
-  const [cartState,setCartState] = useState("")
+  const [cartState,setCartState] = useAtom(cartItems)
 
   console.log(productId);
   // const userId = "6644c1099fbe48e26e5525e8";
@@ -26,19 +30,21 @@ export default function AddToCart({ productId }) {
   function handleDecreaseQty() {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
+      
     }
   }
 
   //patch, post
   function handleAddToCart() {
     const orderLineFinder = cartState?.findIndex(item => item.product_id._id === productId || item.product_id === productId)
-
+    console.log(cartState)
     // patch
     if(orderLineFinder!== -1){
       const nextState = produce(cartState, (draft) => {
         // console.log(cartState)
         draft[orderLineFinder].orderQty += quantity;
     });
+    console.log(nextState[orderLineFinder])
     updateCartDetails(nextState[orderLineFinder]);
     // patchResult.then(function(result) {
     //     // console.log(result)
@@ -72,7 +78,7 @@ export default function AddToCart({ productId }) {
           setCartState(results[finder].orderLine);
       }
       getDetails();   
-  }, [userDetails._id]);
+  }, [setCartState, userDetails._id]);
 
   return (
     <div>
