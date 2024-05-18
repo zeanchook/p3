@@ -156,9 +156,11 @@ const getUserOrders = async (req, res) => {
       path: "orderLine.product_id",
       model: "Product",
     });
-    console.log("157", User.length);
+    console.log("157", User);
 
-    if (User.length === 0) {
+    const findIndex = User.findIndex((items) => items.paidStatus === false);
+
+    if (User.length === 0 || findIndex === -1) {
       const newOrder = await Data.Order.create({});
       newOrder.user_id = userId;
       newOrder.save();
