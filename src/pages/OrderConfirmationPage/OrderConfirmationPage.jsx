@@ -25,7 +25,7 @@ export default function OrderConfirmationPage() {
 					</thead>
 					<tbody>
 						{orderDetails &&
-							orderDetails[0].orderLine?.map((item, index) => (
+							orderDetails.orderLine?.map((item, index) => (
 								<tr key={index}>
 									<td>{item.product_id?.title}</td>
 									<td>{item.orderQty}</td>
@@ -34,7 +34,7 @@ export default function OrderConfirmationPage() {
 							))}
 					</tbody>
 				</table>
-				<p>Order Total: ${orderDetails && orderDetails[0].orderTotal}</p>
+				<p>Order Total: ${orderDetails && orderDetails.orderTotal}</p>
 			</div>
 		</>
 	);
