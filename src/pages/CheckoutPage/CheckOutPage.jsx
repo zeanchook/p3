@@ -2,12 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function CheckOutPage() {
 	const { name, orderid } = useParams();
 	const [customerDetails, setCustomerDetails] = useState(null);
 	const [orderDetails, setOrderDetails] = useState(null);
 	const goToResults = useNavigate();
-
+	
 	useEffect(() => {
 		const fetchCustomerDetails = async () => {
 			try {
@@ -34,7 +35,8 @@ export default function CheckOutPage() {
 				console.log('order details', response);
 				const data = await response.json();
 				console.log('data', data);
-				setOrderDetails(data);
+				console.log(data.findIndex(x=>x._id === orderid))
+				setOrderDetails(data[data.findIndex(x=>x._id === orderid)]);
 			} catch (error) {
 				console.error('Error fetching order details:', error);
 			}
@@ -64,7 +66,7 @@ export default function CheckOutPage() {
 			console.error('Error updating order details:', error);
 		}
 	}
-
+	console.log(orderDetails)
 	return (
 		<>
 			<div className="">
@@ -102,7 +104,7 @@ export default function CheckOutPage() {
 					</thead>
 					<tbody>
 						{orderDetails &&
-							orderDetails[0].orderLine?.map((item, index) => (
+							orderDetails.orderLine?.map((item, index) => (
 								<tr key={index}>
 									<td>{item.product_id?.title}</td>
 									<td>{item.orderQty}</td>
@@ -111,7 +113,7 @@ export default function CheckOutPage() {
 							))}
 					</tbody>
 				</table>
-				<p>Order Total: ${orderDetails && orderDetails[0].orderTotal}</p>
+				<p>Order Total: ${orderDetails && orderDetails.orderTotal}</p>
 
 			</div>
 

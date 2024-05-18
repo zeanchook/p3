@@ -30,7 +30,7 @@ export const handleCart = async (type, cartState, quantity, productId) => {
   }
 };
 
-const finder = (cartState, productId) => {
+export const finder = (cartState, productId) => {
   const orderLineFinder = cartState?.orderLine?.findIndex(
     (item) =>
       item.product_id._id === productId || item.product_id === productId,
