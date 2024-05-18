@@ -18,8 +18,8 @@ export default function CartCheckOut()
   // const log = debug('mern:pages:CartCheckout:CartCheckout');
 
   const userDetails = useContext(DataContext);
-  // const { _id } = userDetails;
-  // const userid = _id;
+  const { _id } = userDetails;
+  const userid = _id;
 
   const navigate = useNavigate();
   const [cartStates,setCartState] = useAtom(cartItems);
@@ -55,7 +55,7 @@ export default function CartCheckOut()
     }, [setCartState, userDetails._id]);
 
 
-    const subtotal = cartStates?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0);
+    const subtotal = (cartStates?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0));
     
     const DisplayItems = () =>
     {
@@ -74,7 +74,7 @@ export default function CartCheckOut()
               <button onClick={handleQty} name={item.product_id._id} value="-1">-</button>
               <button onClick={handleRemove} name={item.product_id._id}>Remove</button>
               </td>
-              <td>${item.extPrice}</td>
+              <td>${(item.extPrice).toFixed(2)}</td>
             </tr>
           ))
     }
@@ -82,7 +82,7 @@ export default function CartCheckOut()
     const handleCheckout = () =>
     {
         //!navigate
-        navigate("/user/:name/:orderid/checkout")
+        navigate(`/user/${userid}/${cartStates._id}/checkout`)
     }
 
     return(
@@ -103,7 +103,7 @@ export default function CartCheckOut()
           <DisplayItems/>
         </tbody>
       </table>
-      <p style={{border: "1px solid rgb(0, 0, 0)"}}>Subtotal: ${subtotal}</p>
+      <p style={{border: "1px solid rgb(0, 0, 0)"}}>Subtotal: ${subtotal.toFixed(2)}</p>
       <button onClick={handleCheckout}>Checkout</button>
     </div>
     )
