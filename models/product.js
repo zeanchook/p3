@@ -9,6 +9,9 @@ const productSchema = new Schema(
     description: { type: String },
     price: { type: Number },
     picture: { type: String },
+    views: { type: Number, default: 0 },
+    reviewsCount: { type: Number, default: 0 },
+    averageRating: { type: Number, default: 0 },
     ranking: { type: Number, default: 6 },
   },
   {
