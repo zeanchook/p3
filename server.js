@@ -22,6 +22,7 @@ app.get("/api", (req, res) => {
   res.json({ hello: "world" });
 });
 
+app.use("/api/user", require("./routes/api/usersRouter"));
 app.use("/api/product", require("./routes/api/productsRouter"));
 app.use("/api/orders", require("./routes/api/ordersRouter"));
 
