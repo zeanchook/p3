@@ -7,13 +7,17 @@ const createJWT = (user) =>
 
 const createUser = async (req, res) => {
   const { name, email, address, username, password, orders } = req.body;
+  let { usertype } = req.body;
+  usertype === "SEIRocks!" ? (usertype = "admin") : (usertype = "user");
   try {
     const user = await Data.User.create({
       name,
       email,
       address,
       username,
+      usertype,
       password,
+
       orders,
     });
     const token = createJWT(user);

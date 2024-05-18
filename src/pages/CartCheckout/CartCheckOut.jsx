@@ -50,7 +50,7 @@ export default function CartCheckOut()
     }, [setCartState, userDetails._id]);
 
 
-    const subtotal = (cartStates?.orderLine?.reduce((total, item) => total + item.extPrice * item.orderQty, 0));
+    const subtotal = (cartStates?.orderLine?.reduce((total, item) => total + item.product_id.price * item.orderQty, 0));
     
     const DisplayItems = () =>
     {
