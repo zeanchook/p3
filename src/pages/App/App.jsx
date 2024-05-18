@@ -5,6 +5,7 @@ import AuthPage from '../AuthPage/AuthPage';
 import {useAtomValue} from "jotai"
 import { loginSts } from '../../../atom';
 
+
 // import NewOrderPage from "../NewOrderPage/NewOrderPage";
 // import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 import UserProfile from './UserProfile/UserProfile';
@@ -14,6 +15,7 @@ import ProductDetailsPage from '../ProductDetailPage/ProductDetailsPage';
 import CartCheckOut from '../CartCheckout/CartCheckOut';
 import CheckOutPage from '../CheckoutPage/CheckOutPage';
 import OrderConfirmationPage from '../OrderConfirmationPage/OrderConfirmationPage';
+import AdminPage from './Admin/Admin';
 import { createContext } from 'react';
 export const DataContext = createContext();
 
@@ -37,6 +39,7 @@ function App() {
 	
     return (
     <Routes>
+	<Route path="/admin" element={<AdminPage />}/>
       <Route path="/home" element={<HomePage />}/>
       <Route path="/products" element={<ProductListingPage />}/>
       <Route path="/user/:name" element={<UserProfile />}/>

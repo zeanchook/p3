@@ -13,6 +13,7 @@ export default class SignUpForm extends Component {
     address: "",
     username: "",
     password: "",
+    usertype: "",
     confirm: "",
     error: ""
   };
@@ -91,6 +92,16 @@ export default class SignUpForm extends Component {
             <input
               name="password"
               value={this.state.password}
+              onChange={this.handleChange}
+            />
+          </label>
+          <br />
+
+          <label>
+            UserType:
+            <input
+              name="usertype"
+              value={this.state.usertype}
               onChange={this.handleChange}
             />
           </label>
