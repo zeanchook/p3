@@ -16,17 +16,19 @@ export const handleCart = async (type, cartState, quantity, productId) => {
     const updatedCart = await updateCartDetails(
       nextState.orderLine[orderLineFinder],
     );
-    return updatedCart;
+    console.log(updatedCart, nextState);
+    return nextState;
   } else {
     const orderLine = {
       product_id: productId,
       orderQty: quantity,
     };
-    //      const nextState = produce(cartState, (draft) => {
-    //       draft?.orderLine?.push(orderLine)
-    //   });
+    const nextState = produce(cartState, (draft) => {
+      draft?.orderLine?.push(orderLine);
+    });
     const updatedCart = await createCartDetails(cartState._id, orderLine);
-    return updatedCart;
+    console.log(nextState, updatedCart);
+    return nextState;
   }
 };
 

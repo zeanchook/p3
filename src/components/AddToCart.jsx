@@ -1,10 +1,8 @@
-import { useContext,useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 // import debug from "debug";
-import { DataContext } from "../pages/App/App";
 
-
-import {useAtom} from "jotai"
-import { cartItems } from "../../atom";
+import {useAtom,useAtomValue} from "jotai"
+import { loginSts , cartItems } from "../../atom";
 
 import { getCartDetails } from "../utilities/cart-service"
 import { handleCart } from "../utilities/cartHandler";
@@ -13,9 +11,7 @@ import { handleCart } from "../utilities/cartHandler";
 
 export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
-
-  const userDetails = useContext(DataContext);
-
+  const userDetails = useAtomValue(loginSts);
   const [cartState,setCartState] = useAtom(cartItems);
 
   function handleIncreaseQty() {

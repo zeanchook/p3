@@ -1,13 +1,12 @@
 const Data = require("../../models/order");
+const { User } = require("../../models/user");
 
 const updateOrder = async (req, res) => {
   try {
-    console.log("HELLLLLO");
-    console.log("here", req.body);
     await Data.Order.updateOne(
       {
         "orderLine.product_id": req.body.product_id,
-        "orderLine._id": req.body._id,
+        // "orderLine._id": req.body._id,
       },
       {
         $set: {
@@ -122,6 +121,7 @@ const getUserByOrderId = async (req, res) => {
 //updates the order and user data when place order button is pushed
 const updateOrderPaid = async (req, res) => {
   const { orderId, userId } = req.params;
+  console.log(orderId, userId);
   const updatedData = { paidStatus: true, ...req.body };
 
   try {
@@ -134,12 +134,12 @@ const updateOrderPaid = async (req, res) => {
       return res.status(500).json({ message: "Error updating order" });
     }
 
-    const user = await Data.User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
       userId,
       { $addToSet: { orders: orderId } },
       { new: true },
     );
-
+    console.log("results,", user);
     if (!user) {
       return res.status(500).json({ message: "Error updating user" });
     }

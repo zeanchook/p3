@@ -4,11 +4,11 @@ const BASE_URL = "/api";
 
 export function signUp(userData) {
   console.log(userData);
-  return sendRequest(`${BASE_URL}/product`, "POST", userData);
+  return sendRequest(`${BASE_URL}/user`, "POST", userData);
 }
 
 export function login(credentials) {
-  return sendRequest(`${BASE_URL}/product/login`, "POST", credentials);
+  return sendRequest(`${BASE_URL}/user/login`, "POST", credentials);
 }
 
 export function checkToken() {

@@ -33,8 +33,6 @@ const userLogin = async (req, res) => {
   }
 
   const match = await bcrypt.compare(password, user.password);
-  console.log(password, user.password);
-  console.log(match);
 
   if (match) {
     const token = createJWT(user);
