@@ -2,11 +2,13 @@ const Data = require("../../models/order");
 const { User } = require("../../models/user");
 
 const updateOrder = async (req, res) => {
+  console.log("here", req.body);
+  console.log("qty", req.body.orderQty);
   try {
     await Data.Order.updateOne(
       {
-        "orderLine.product_id": req.body.product_id,
-        // "orderLine._id": req.body._id,
+        "orderLine.product_id": req.body.product_id._id,
+        "orderLine._id": req.body._id,
       },
       {
         $set: {
@@ -22,6 +24,7 @@ const updateOrder = async (req, res) => {
       path: "orderLine.product_id",
       model: "Product",
     });
+    console.log("testing456", testing456);
     return res.status(201).json(testing456);
     // .json({ message: "Order created successfully", testing123 });
   } catch (error) {
