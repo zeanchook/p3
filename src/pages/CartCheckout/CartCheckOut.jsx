@@ -2,22 +2,16 @@ import { getCartDetails } from "../../utilities/cart-service"
 // import debug from 'debug';
 // import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-
-
-import {useAtom} from "jotai"
-import { cartItems } from "../../../atom";
-
-import { useContext, useEffect } from "react";
-
+import {useAtom,useAtomValue} from "jotai"
+import { cartItems ,loginSts } from "../../../atom";
+import { useEffect } from "react";
 import { handleCart,deleteCart } from "../../utilities/cartHandler";
-
-import { DataContext } from "../App/App";
 
 export default function CartCheckOut()
 {
   // const log = debug('mern:pages:CartCheckout:CartCheckout');
 
-  const userDetails = useContext(DataContext);
+  const userDetails = useAtomValue(loginSts);
   const { _id } = userDetails;
   const userid = _id;
 
@@ -43,7 +37,7 @@ export default function CartCheckOut()
       setCartState(deleteCart(event.target.name,cartStates))
     }
 
-    console.log(cartStates)
+    console.log(cartStates);
     useEffect(() => {
       async function getDetails()
         {
@@ -51,6 +45,7 @@ export default function CartCheckOut()
             const finder = results?.findIndex(item => item.paidStatus === false)
             setCartState(results[finder]);
         }
+        console.log("here before")
         getDetails();   
     }, [setCartState, userDetails._id]);
 
@@ -74,7 +69,7 @@ export default function CartCheckOut()
               <button onClick={handleQty} name={item.product_id._id} value="-1">-</button>
               <button onClick={handleRemove} name={item.product_id._id}>Remove</button>
               </td>
-              <td>${(item.extPrice).toFixed(2)}</td>
+              <td>${(item.product_id.price  * item.orderQty).toFixed(2)}</td>
             </tr>
           ))
     }
@@ -103,7 +98,7 @@ export default function CartCheckOut()
           <DisplayItems/>
         </tbody>
       </table>
-      <p style={{border: "1px solid rgb(0, 0, 0)"}}>Subtotal: ${subtotal.toFixed(2)}</p>
+      {subtotal && <p style={{border: "1px solid rgb(0, 0, 0)"}}>Subtotal: ${subtotal.toFixed(2)}</p>}
       <button onClick={handleCheckout}>Checkout</button>
     </div>
     )

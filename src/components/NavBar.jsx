@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom"
-import { useContext } from "react";
-import { DataContext } from "../pages/App/App";
 import { logOut } from "../utilities/users-service";
+import {useAtom,useAtomValue} from "jotai"
+import { loginSts } from "../../atom";
 
 export default function NavBar()
 {
-    const userDetails = useContext(DataContext);
-    console.log(userDetails)
+    const userDetails = useAtomValue(loginSts);
+
+    const [user, setUser] = useAtom(loginSts);
+
+    console.log(userDetails,user)
 
     const handleClick = () =>
     {
       logOut();
+      setUser("")
     }
 
     const Authentication = () =>
