@@ -13,7 +13,7 @@ export default function CheckOutPage() {
 		const fetchCustomerDetails = async () => {
 			try {
 				console.log('order', orderid);
-				const url = `/api/product/checkout/${orderid}`;
+				const url = `/api/orders/checkout/${orderid}`;
 				const response = await fetch(url);
 				const data = await response.json();
 				setCustomerDetails(data);
@@ -28,7 +28,7 @@ export default function CheckOutPage() {
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 			try {
-				const url = `/api/product/order/${orderid}`;
+				const url = `/api/orders/order/${orderid}`;
 				console.log('username', orderid);
 				const response = await fetch(url);
 
@@ -46,7 +46,7 @@ export default function CheckOutPage() {
 
 	async function handlePlaceOrderClick() {
 		try {
-			const response = await fetch(`/api/product/${orderid}/${name}/paid`, {
+			const response = await fetch(`/api/orders/${orderid}/${name}/paid`, {
 				method: 'PATCH',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({}),

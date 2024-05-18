@@ -1,7 +1,7 @@
 export const getCartDetails = async (userid) => {
   //orderController.getOrder
   //! to update route path folder
-  const url = `/api/product/getuseOrder/${userid}`;
+  const url = `/api/orders/getuseOrder/${userid}`;
   console.log(url);
   const response = await fetch(url);
   const myResults = await response.json();
