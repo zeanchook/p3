@@ -59,17 +59,26 @@ export default function UserProfile() {
 			<br></br>
 			<div>
 				<h4>Order Details</h4>
-				{clickedOrder && (
-					<div>
-						{clickedOrder.orderLine.map((lineItem) => (
-							<div key={lineItem._id}>
-								<p>Product: {lineItem.product_id._id}</p>
-								<p>Quantity: {lineItem.orderQty}</p>
-								<p>Extended Price: {lineItem.extPrice}</p>
-							</div>
-						))}
-					</div>
-				)}
+				<table>
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Quantity</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						{clickedOrder &&
+							clickedOrder.orderLine?.map((lineItem) => (
+								<tr key={lineItem._id}>
+									<td>{lineItem.product_id.title}</td>
+									<td>{lineItem.orderQty}</td>
+									<td>${lineItem.extPrice}</td>
+								</tr>
+							))}
+					</tbody>
+				</table>
+				<p>Order Total: ${clickedOrder && clickedOrder.orderTotal}</p>
 			</div>
 			<br></br>
 			<button onClick={handleLogOut}>Log Out</button>
