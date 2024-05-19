@@ -1,4 +1,5 @@
 const Data = require("../../models/order");
+const Product = require("../../models/product");
 const { User } = require("../../models/user");
 
 const updateOrder = async (req, res) => {
@@ -153,20 +154,30 @@ const updateOrderPaid = async (req, res) => {
     res.status(500).json({ message: "Error updating order" });
   }
 };
-const getUserOrdersById = async (req, res) => {
-  const { userId } = req.params;
 
+const getOrderProducts = async (req, res) => {
+  const { orderId } = req.params;
   try {
-    const user = await Data.User.findById(userId, "orders");
+    const order = await Data.Order.findById(orderId).populate({
+      path: "orderLine.product_id",
+      model: Product,
+    });
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
     }
 
-    res.status(200).json(user.orders);
+    const products = order.orderLine.map((line) => ({
+      title: line.product_id.title,
+      price: line.product_id.price,
+      picture: line.product_id.picture,
+      quantity: line.orderQty,
+    }));
+
+    res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error retrieving user orders" });
+    res.status(500).json({ message: "Error fetching order products" });
   }
 };
 
@@ -178,5 +189,5 @@ module.exports = {
   getUserOrders,
   getUserByOrderId,
   updateOrderPaid,
-  getUserOrdersById,
+  getOrderProducts,
 };

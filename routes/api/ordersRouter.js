@@ -8,8 +8,8 @@ router.delete("/update/:orderId/", orderController.deleteOrder);
 
 router.get("/order/:orderId", orderController.getOrder);
 router.get("/getuseOrder/:userId", orderController.getUserOrders);
-router.get("/:userId/orders", orderController.getUserOrdersById);
 router.get("/checkout/:orderId", orderController.getUserByOrderId);
 router.patch("/:orderId/:userId/paid", orderController.updateOrderPaid);
+router.get("/order/products/:orderId", orderController.getOrderProducts);
 
 module.exports = router;

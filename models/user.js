@@ -11,7 +11,7 @@ const userSchema = new Schema(
     username: { type: String, required: true },
     password: { type: String, required: true },
     usertype: { type: String },
-    orders: {},
+    orders: [{ type: Schema.Types.ObjectId, ref: "Order" }],
   },
   {
     timestamps: true,
