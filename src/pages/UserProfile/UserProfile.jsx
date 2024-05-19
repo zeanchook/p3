@@ -26,22 +26,25 @@ export default function UserProfile() {
 		fetchOrderIds();
 	}, [name]);
 
-	const handleOrderClick = async (order) => {
-		try {
-			console.log('orderid', order);
-			const response = await fetch(`/api/order/products/${order}`);
-			const data = await response.json();
-			setClickedOrder(data);
-			console.log('orderdata', clickedOrder);
-		} catch (error) {
-			console.error(error);
-		}
-	};
 
 	const handleLogOut = () => {
 		logOut();
 		setUser('');
 	};
+
+
+const handleOrderClick = async (order) => {
+		try {
+			console.log('orderid', order);
+			const response = await fetch(`/api/orders/order/${order}`);
+			const data = await response.json();
+			setClickedOrder(data[data.findIndex(x=>x._id === order)]);
+			console.log('orderdata', clickedOrder);
+		} catch (error) {
+			console.error(error);
+		}
+	}; 
+
 
 	return (
 		<>

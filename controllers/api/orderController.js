@@ -1,5 +1,4 @@
 const Data = require("../../models/order");
-const { Product } = require("../../models/product");
 const { User } = require("../../models/user");
 
 const updateOrder = async (req, res) => {
@@ -155,32 +154,6 @@ const updateOrderPaid = async (req, res) => {
   }
 };
 
-const getOrderProducts = async (req, res) => {
-  const { orderId } = req.params;
-  try {
-    const order = await Data.Order.findById(orderId).populate({
-      path: "orderLine.product_id",
-      model: Product,
-    });
-
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    const products = order.orderLine.map((line) => ({
-      title: line.product_id.title,
-      price: line.product_id.price,
-      picture: line.product_id.picture,
-      quantity: line.orderQty,
-    }));
-
-    res.status(200).json(products);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching order products" });
-  }
-};
-
 module.exports = {
   updateOrder,
   createOrderLine,
@@ -189,5 +162,4 @@ module.exports = {
   getUserOrders,
   getUserByOrderId,
   updateOrderPaid,
-  getOrderProducts,
 };
