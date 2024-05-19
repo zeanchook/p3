@@ -10,6 +10,6 @@ router.get("/order/:orderId", orderController.getOrder);
 router.get("/getuseOrder/:userId", orderController.getUserOrders);
 router.get("/checkout/:orderId", orderController.getUserByOrderId);
 router.patch("/:orderId/:userId/paid", orderController.updateOrderPaid);
-router.get("/order/products/:orderId", orderController.getOrderProducts);
+router.get("/products/:orderId", orderController.getOrderProducts);
 
 module.exports = router;

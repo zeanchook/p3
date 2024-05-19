@@ -28,22 +28,20 @@ export default function UserProfile() {
 
 	const handleOrderClick = async (order) => {
 		try {
-			console.log("orderid", order)
-		  const response = await fetch(`/api/order/product/${order}`);
-		  const data = await response.json();
-		  setClickedOrder(data);
-		  console.log("orderdata", clickedOrder)		  
+			console.log('orderid', order);
+			const response = await fetch(`/api/order/products/${order}`);
+			const data = await response.json();
+			setClickedOrder(data);
+			console.log('orderdata', clickedOrder);
 		} catch (error) {
-		  console.error(error);
+			console.error(error);
 		}
-	  };
+	};
 
-	  const handleLogOut = () =>
-		{
-		  logOut();
-		  setUser("")
-		}
- 
+	const handleLogOut = () => {
+		logOut();
+		setUser('');
+	};
 
 	return (
 		<>
@@ -52,27 +50,29 @@ export default function UserProfile() {
 				{userOrders &&
 					userOrders.map((order) => (
 						<div key={order}>
-							<button onClick={() => handleOrderClick(order)}>Order ID: {order}</button>
+							<button onClick={() => handleOrderClick(order)}>
+								Order {order}
+							</button>
 						</div>
 					))}
 			</div>
 			<br></br>
 			<div>
-			<h4>Order Details</h4>
-        {clickedOrder && (
-          <div>
-             {clickedOrder.orderLine.map((lineItem) => (
-              <div key={lineItem._id}>
-                <p>Product: {lineItem.product_id._id}</p>
-                <p>Quantity: {lineItem.orderQty}</p>
-                <p>Extended Price: {lineItem.extPrice}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-	  <br></br>
-	  <button onClick={handleLogOut}>Log Out</button>
-    </>
-  );
+				<h4>Order Details</h4>
+				{clickedOrder && (
+					<div>
+						{clickedOrder.orderLine.map((lineItem) => (
+							<div key={lineItem._id}>
+								<p>Product: {lineItem.product_id._id}</p>
+								<p>Quantity: {lineItem.orderQty}</p>
+								<p>Extended Price: {lineItem.extPrice}</p>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+			<br></br>
+			<button onClick={handleLogOut}>Log Out</button>
+		</>
+	);
 }
