@@ -1,5 +1,5 @@
 const Data = require("../../models/order");
-const Product = require("../../models/product");
+const { Product } = require("../../models/product");
 const { User } = require("../../models/user");
 
 const updateOrder = async (req, res) => {
