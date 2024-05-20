@@ -6,10 +6,16 @@ router.post("/update/:orderId/", orderController.updateOrder);
 router.post("/create/:orderId/", orderController.createOrderLine);
 router.delete("/update/:orderId/", orderController.deleteOrder);
 
+
 router.get("/order", orderController.getOrder); //orders
-router.post("/order/updateStatus", orderController.updateOrderStatus);
+router.post("/order/updateStatus", orderController.updateOrderStatus); //
 router.get("/getuseOrder/:userId", orderController.getUserOrders); //
 router.get("/:userId/orders", orderController.getUserOrdersById);
+
+//WL
+// router.get("/order/:orderId", orderController.getOrder);
+// router.get("/getuseOrder/:userId", orderController.getUserOrders);
+
 router.get("/checkout/:orderId", orderController.getUserByOrderId);
 router.patch("/:orderId/:userId/paid", orderController.updateOrderPaid);
 

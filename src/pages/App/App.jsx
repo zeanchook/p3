@@ -8,7 +8,7 @@ import { loginSts } from '../../../atom';
 
 // import NewOrderPage from "../NewOrderPage/NewOrderPage";
 // import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
-import UserProfile from './UserProfile/UserProfile';
+import UserProfile from '../UserProfile/UserProfile';
 import HomePage from '../HomePage/HomePage';
 import ProductListingPage from "../ProductListingPage/ProductListingPage"
 import ProductDetailsPage from '../ProductDetailPage/ProductDetailsPage';
