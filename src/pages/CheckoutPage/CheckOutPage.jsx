@@ -28,7 +28,7 @@ export default function CheckOutPage() {
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 			try {
-				const url = `/api/orders/order/${orderid}`;
+				const url = `/api/orders/order`;
 				console.log('username', orderid);
 				const response = await fetch(url);
 

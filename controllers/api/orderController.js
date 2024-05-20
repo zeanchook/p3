@@ -1,14 +1,37 @@
 const Data = require("../../models/order");
 const { User } = require("../../models/user");
 
-const updateOrder = async (req, res) => {
-  console.log("here", req.body);
-  console.log("qty", req.body.orderQty);
+const updateOrderStatus = async (req, res) => {
+  console.log(req.body.orderStatus);
   try {
     await Data.Order.updateOne(
       {
-        "orderLine.product_id": req.body.product_id._id,
-        "orderLine._id": req.body._id,
+        _id: req.body._id,
+      },
+      {
+        $set: {
+          orderStatus: req.body.orderStatus,
+        },
+      },
+    );
+
+    res.status(201).json();
+    // .json({ message: "Order created successfully", testing123 });
+  } catch (error) {
+    console.error("Error creating order:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const updateOrder = async (req, res) => {
+  // console.log("here", req.body);
+  // console.log("qty", req.body.orderQty);
+  // console.log(req.params.orderId)
+  try {
+    await Data.Order.updateOne(
+      {
+        "orderLine.product_id": req.body.product_id,
+        _id: req.params.orderId,
       },
       {
         $set: {
@@ -19,7 +42,7 @@ const updateOrder = async (req, res) => {
 
     const testing456 = await Data.Order.findOne({
       "orderLine.product_id": req.body.product_id,
-      "orderLine._id": req.body._id,
+      "Order._id": req.params.orderId,
     }).populate({
       path: "orderLine.product_id",
       model: "Product",
@@ -70,10 +93,13 @@ const deleteOrder = async (req, res) => {
 };
 
 const getOrder = async (req, res) => {
-  const products = await Data.Order.find({}).populate({
-    path: "orderLine.product_id",
-    model: "Product",
-  });
+  const products = await Data.Order.find({})
+    .populate({
+      path: "orderLine.product_id",
+      model: "Product",
+    })
+    .populate("user_id");
+  console.log("products", products);
   res.status(201).json(products);
 };
 
@@ -125,7 +151,7 @@ const getUserByOrderId = async (req, res) => {
 const updateOrderPaid = async (req, res) => {
   const { orderId, userId } = req.params;
   console.log(orderId, userId);
-  const updatedData = { paidStatus: true, ...req.body };
+  const updatedData = { paidStatus: true, orderStatus: "Paid", ...req.body };
 
   try {
     const updatedOrder = await Data.Order.findByIdAndUpdate(
@@ -179,4 +205,5 @@ module.exports = {
   getUserByOrderId,
   updateOrderPaid,
   getUserOrdersById,
+  updateOrderStatus,
 };
