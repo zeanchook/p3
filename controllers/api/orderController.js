@@ -188,6 +188,6 @@ module.exports = {
   getUserOrders,
   getUserByOrderId,
   updateOrderPaid,
-  getUserOrdersById,//sk added back when merge to check on it
-  updateOrderStatus,//sk added back when merge
+  // getUserOrdersById,
+  updateOrderStatus,
 };
