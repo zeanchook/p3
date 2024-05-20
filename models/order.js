@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const orderLineSchema = new Schema(
   {
     product_id: { type: Schema.Types.ObjectId, ref: "Product" },
-    orderQty: { type: Number, required: true, default: 1 },
+    orderQty: { type: Number, required: true, default: 1, Min: 1 },
   },
   { toJSON: { virtuals: true } },
 );
@@ -17,6 +17,7 @@ const orderSchema = new Schema(
   {
     user_id: { type: Schema.Types.ObjectId, ref: "User" },
     paidStatus: { type: Boolean, required: true, default: false },
+    orderStatus: { type: String, required: true, default: "Not Paid" },
     orderLine: [orderLineSchema],
   },
   {

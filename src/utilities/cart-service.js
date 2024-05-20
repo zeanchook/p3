@@ -9,8 +9,8 @@ export const getCartDetails = async (userid) => {
 };
 
 //update
-export const updateCartDetails = async (body) => {
-  const url = `/api/orders/update`;
+export const updateCartDetails = async (body, orderId) => {
+  const url = `/api/orders/update/${orderId}`;
   const headers = {
     "Content-Type": "application/json",
   };
@@ -20,12 +20,12 @@ export const updateCartDetails = async (body) => {
     body: JSON.stringify(body),
   });
   const cartDetail = await response.json();
-  console.log(cartDetail);
+  // console.log(cartDetail);
   return cartDetail;
 };
 //create
 export const createCartDetails = async (orderId, orderLine) => {
-  const url = `/api/orders/update/${orderId}`;
+  const url = `/api/orders/create/${orderId}`;
   const headers = {
     "Content-Type": "application/json",
   };

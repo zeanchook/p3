@@ -10,6 +10,7 @@ export default function ProductListingPage() {
   const log = debug("mern:pages:ProductListingPage:ProductListingPage");
   const navigate = useNavigate();
 
+  // limit results.
   useEffect(() => {
     async function getDetails() {
       let results = await getListofProducts();

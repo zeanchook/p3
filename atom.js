@@ -4,4 +4,6 @@ import { getUser } from "./src/utilities/users-service";
 const cartItems = atom("");
 const loginSts = atom(getUser());
 
-export { cartItems, loginSts };
+const adminUserOrder = atom("");
+
+export { cartItems, loginSts, adminUserOrder };
