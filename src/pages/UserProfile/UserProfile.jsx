@@ -8,10 +8,11 @@ export default function UserProfile() {
 	const { name } = useParams();
 	const [userOrders, setUserOrders] = useState(null);
 	const [clickedOrder, setClickedOrder] = useState(null);
-	const [setUser] = useAtom(loginSts);
+	const [user, setUser] = useAtom(loginSts);
 	/* const [userOrderDetails , setUserOrderDetails] = useState(null);
 	 */
 	//fetch orders under userId
+
 	useEffect(() => {
 		const fetchOrderIds = async () => {
 			try {
@@ -32,6 +33,7 @@ export default function UserProfile() {
 		setUser('');
 	};
 
+console.log(user)
 
 const handleOrderClick = async (order) => {
 		try {
