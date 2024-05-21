@@ -10,7 +10,7 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 const publicPath = path.join(__dirname, "public");
-this.express.use("/public", express.static(publicPath));
+app.use("/public", express.static(publicPath));
 
 app.use(express.static(path.join(__dirname, "dist")));
 app.use(require("./config/checkToken").checkTokenMiddleware);
