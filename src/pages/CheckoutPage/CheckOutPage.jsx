@@ -16,9 +16,11 @@ export default function CheckOutPage() {
 		setCustomerDetails(user);
 	}, [user]);
 
-	useEffect(() => {
+	
+	/* 	useEffect(() => {
 		setOrderDetails(currentcartItems);
-	}, [currentcartItems]);
+	}, [currentcartItems]); */
+
 
 	/* 	useEffect(() => {
 		const fetchCustomerDetails = async () => {
@@ -36,25 +38,32 @@ export default function CheckOutPage() {
 		fetchCustomerDetails();
 	}, [orderid]);
  */
-	/* useEffect(() => {
+
+	useEffect(() => {
 		const fetchOrderDetails = async () => {
 			try {
-				const url = `/api/orders/order/${orderid}`;
+				const url = `/api/orders/getUserOrders2/`;
 				const response = await fetch(url);
 				console.log('order details', response);
 				const data = await response.json();
 				console.log('data', data);
-				console.log(data.findIndex((x) => x._id === orderid));
-				setOrderDetails(data[data.findIndex((x) => x._id === orderid)]);
+				/* console.log(data.findIndex((x) => x._id === orderid)); */
+				setOrderDetails(data);
+				console.log('Order Details', orderDetails);
 			} catch (error) {
 				console.error('Error fetching order details:', error);
 			}
 		};
 		fetchOrderDetails();
-	}, [orderid]); */
+	}, [user]);
 
 	async function handlePlaceOrderClick() {
 		try {
+			if (!user) {
+				goToResults('/login');
+				return;
+			}
+
 			// const response = await fetch(`/api/orders/${orderid}/${name}/paid`, {
 			// 	method: 'PATCH',
 			// 	headers: { 'Content-Type': 'application/json' },
@@ -68,7 +77,7 @@ export default function CheckOutPage() {
 			// 	throw new Error('Error updating order status');
 			// }
 
-			goToResults(`/user/${orderid}/thankyou`, {
+			goToResults(`/user/thankyou`, {
 				state: {
 					orderDetails: orderDetails,
 					customerDetails: customerDetails,
@@ -117,16 +126,16 @@ export default function CheckOutPage() {
 					</thead>
 					<tbody>
 						{orderDetails &&
-							orderDetails.products?.map((item, index) => (
+							orderDetails.orderLine?.map((item, index) => (
 								<tr key={index}>
-									<td>{item.title}</td>
-									<td>{item.quantity}</td>
-									<td>${item.price * item.quantity}</td>
+									<td>{item.product_id.title}</td>
+									<td>{item.orderQty}</td>
+									<td>${item.extPrice}</td>
 								</tr>
 							))}
 					</tbody>
 				</table>
-				<p>Cart Total: {orderDetails && orderDetails.total}</p>
+				<p>Cart Total: {orderDetails && orderDetails.orderTotal}</p>
 			</div>
 
 			<div>
