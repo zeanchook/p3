@@ -41,8 +41,28 @@ const createProduct = async (req, res) => {
   }
 };
 
+// Increment views and update ranking
+const incrementViews = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    console.log("productId", productId);
+    const product = await Data.findById(productId);
+    if (product) {
+      product.views += 1;
+      product.calculateRanking();
+      await product.save();
+      res.status(200).send({ message: "Views incremented" });
+    } else {
+      res.status(404).send({ message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 module.exports = {
   index,
   productDetails,
   createProduct,
+  incrementViews,
 };
