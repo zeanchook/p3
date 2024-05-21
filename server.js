@@ -1,5 +1,5 @@
 const express = require("express");
-// const path = require("path");
+const path = require("path");
 // const favicon = require("serve-favicon");
 const logger = require("morgan");
 const debug = require("debug")("mern:server");
@@ -28,9 +28,9 @@ app.use("/api/orders", require("./routes/api/ordersRouter"));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
-// app.get("/*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 const port = process.env.PORT || 3000;
 
