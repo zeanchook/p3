@@ -1,8 +1,82 @@
-# React + Vite
+# E-commerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+An E-commerce project developed by three software develpoers using MERN stack.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## User Stories
+
+## Wireframe
+
+[Figma](https://www.figma.com/board/fIRZaoCQJYpwJFw0BRjjk4/Project-3%3A-3D-Printing-Ecom-Site?node-id=0-1&t=9kn4G5qkOHLvyo00-0)
+
+## Project Planning
+
+Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
+
+## Technologies and Tools Used
+
+#### Language
+
+- HTML
+- CSS
+- JavaScript
+
+#### Framework
+
+- React.js
+- Node.js
+- Express.js
+- Tailwind CSS
+
+#### Technologies
+
+- RESTful
+- CURD data operations
+
+#### Database
+
+- MongoDB
+
+#### Tools
+
+- Figma (Wireframe)
+- Trello (Public Board)
+- Render (Online Deployment)
+- JWT
+- Git and Github
+- Visual Studio Code
+
+## Process
+
+## Functionality
+
+## Screenshots
+
+## Getting Started
+
+[Render](https://p3-2g7d.onrender.com/)
+
+## Contributor:
+
+[zeanchook](https://github.com/zeanchook)
+[WAILENGL](https://github.com/WAILENGL)
+[Miaoling Mai](https://github.com/MollyMai99)
+
+## Next Steps
+
+- Ranking System: Calculate popularity and rank the product according to popularity
+- Admin Page: Shop keeper can upload product details and manage order status
+
+## Experience Summary
+
+<!-- Share the experience:
+☐ What was your biggest challenge? (besides Team Git Workflow)
+
+☐ What are your key learnings/takeaways? -->
+
+### zeanchook
+
+### WAILENGL
+
+### Miaoling Mai

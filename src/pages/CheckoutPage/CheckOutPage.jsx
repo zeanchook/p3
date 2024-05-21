@@ -1,16 +1,26 @@
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import sendRequest from '../../utilities/send-request';
-
+import { useAtom, useAtomValue } from 'jotai';
+import { loginSts, cartItems } from '../../../atom';
 
 export default function CheckOutPage() {
-	const { name, orderid } = useParams();
 	const [customerDetails, setCustomerDetails] = useState(null);
 	const [orderDetails, setOrderDetails] = useState(null);
 	const goToResults = useNavigate();
-	
+	const currentcartItems = useAtomValue(cartItems);
+	const orderid = currentcartItems._id;
+	const [user] = useAtom(loginSts);
+
 	useEffect(() => {
+		setCustomerDetails(user);
+	}, [user]);
+
+	useEffect(() => {
+		setOrderDetails(currentcartItems);
+	}, [currentcartItems]);
+
+	/* 	useEffect(() => {
 		const fetchCustomerDetails = async () => {
 			try {
 				console.log('order', orderid);
@@ -25,25 +35,23 @@ export default function CheckOutPage() {
 
 		fetchCustomerDetails();
 	}, [orderid]);
-
-	useEffect(() => {
+ */
+	/* useEffect(() => {
 		const fetchOrderDetails = async () => {
 			try {
-				const url = `/api/orders/order`;
-				console.log('username', orderid);
+				const url = `/api/orders/order/${orderid}`;
 				const response = await fetch(url);
-
 				console.log('order details', response);
 				const data = await response.json();
 				console.log('data', data);
-				console.log(data.findIndex(x=>x._id === orderid))
-				setOrderDetails(data[data.findIndex(x=>x._id === orderid)]);
+				console.log(data.findIndex((x) => x._id === orderid));
+				setOrderDetails(data[data.findIndex((x) => x._id === orderid)]);
 			} catch (error) {
 				console.error('Error fetching order details:', error);
 			}
 		};
 		fetchOrderDetails();
-	}, [orderid]);
+	}, [orderid]); */
 
 	async function handlePlaceOrderClick() {
 		try {
@@ -51,16 +59,16 @@ export default function CheckOutPage() {
 			// 	method: 'PATCH',
 			// 	headers: { 'Content-Type': 'application/json' },
 			// 	body: JSON.stringify({}),
-				
+
 			// });
-			await sendRequest(`/api/orders/${orderid}/paid`,"PATCH");
+			await sendRequest(`/api/orders/${orderid}/paid`, 'PATCH');
 			// console.log(response.ok)
 			// // sendRequest(`/api/orders/${orderid}/${name}/paid`,"PATCH")
 			// if (!response.ok) {
 			// 	throw new Error('Error updating order status');
 			// }
 
-			goToResults(`/user/${name}/${orderid}/thankyou`, {
+			goToResults(`/user/${orderid}/thankyou`, {
 				state: {
 					orderDetails: orderDetails,
 					customerDetails: customerDetails,
@@ -96,7 +104,8 @@ export default function CheckOutPage() {
 			</div>
 
 			<div>
-				<h2>Order Summary</h2>
+				<br></br>
+				<h2>Cart Summary</h2>
 
 				<table>
 					<thead>
@@ -108,17 +117,16 @@ export default function CheckOutPage() {
 					</thead>
 					<tbody>
 						{orderDetails &&
-							orderDetails.orderLine?.map((item, index) => (
+							orderDetails.products?.map((item, index) => (
 								<tr key={index}>
-									<td>{item.product_id?.title}</td>
-									<td>{item.orderQty}</td>
-									<td>${item.product_id.price * item.orderQty}</td>
+									<td>{item.title}</td>
+									<td>{item.quantity}</td>
+									<td>${item.price * item.quantity}</td>
 								</tr>
 							))}
 					</tbody>
 				</table>
-				<p>Order Total: ${orderDetails && orderDetails.orderTotal}</p>
-
+				<p>Cart Total: {orderDetails && orderDetails.total}</p>
 			</div>
 
 			<div>

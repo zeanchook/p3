@@ -15,8 +15,8 @@ export default function NavBar() {
 	console.log(userDetails, user);
 
 	const handleClick = () => {
-		console.log(userDetails._id)
-		goTo(`/user/${userDetails._id}`);
+		console.log(userDetails._id);
+		goTo(`/user`);
 	};
 
 	const Authentication = () => {

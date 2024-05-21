@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import debug from "debug";
 
-
 export default function ProductListingPage() {
   const [prodResults, setprodResults] = useState("");
   const log = debug("mern:pages:ProductListingPage:ProductListingPage");
@@ -15,16 +14,15 @@ export default function ProductListingPage() {
     async function getDetails() {
       let results = await getListofProducts();
       results = results?.sort((b, a) => {
-        if (a.ranking > b.ranking) {
+        if (a.createdAt > b.createdAt) {
           return -1;
         }
-        if (a.ranking < b.ranking) {
+        if (a.createdAt < b.createdAt) {
           return 1;
         }
         return 0;
       });
       setprodResults(results);
-
     }
     getDetails();
   }, []);
