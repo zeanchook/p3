@@ -42,11 +42,11 @@ function App() {
 	<Route path="/admin" element={<AdminPage />}/>
       <Route path="/" element={<HomePage />}/>
       <Route path="/products" element={<ProductListingPage />}/>
-      <Route path="/user/:name" element={<UserProfile />}/>
+      <Route path="/user/" element={<UserProfile />}/>
       <Route path="/product/:productId/" element={<ProductDetailsPage />}/>
       <Route path="/user/cart" element={<CartCheckOut />} />
       <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />}/>
-	<Route path="/user/:name/:orderid/thankyou" element={<OrderConfirmationPage />}/>
+	<Route path="/user/:orderid/thankyou" element={<OrderConfirmationPage />}/>
     </Routes>)
   }
 }
