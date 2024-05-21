@@ -29,11 +29,6 @@ Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
 - Express.js
 - Tailwind CSS
 
-#### Technologies
-
-- RESTful
-- CURD data operations
-
 #### Database
 
 - MongoDB
@@ -46,6 +41,16 @@ Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
 - JWT
 - Git and Github
 - Visual Studio Code
+- Vite
+
+## Technical Description
+
+- A MERN stack app
+- Have three data entities (Models)
+- Data operations including CREATE, READ, UPDATE, and DELETE
+- Authenticate users using JWT
+- Be deployed online
+- Manage team contributions and collaboration using Git/GitHub team workflow
 
 ## Development Process
 
@@ -59,15 +64,6 @@ Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
 8. We reported the soft launch to the instructor and received feedback.
 9. We made adjustments based on the instructor's feedback, mainly focusing on security and validation.
 10. We gave a final presentation of our project to the instructor and classmates, and answered questions.
-
-## Technical Description
-
-- A MERN stack app
-- Have three data entities (Models)
-- Data operations including CREATE, READ, UPDATE, and DELETE
-- Authenticate users using JWT
-- Be deployed online
-- Manage team contributions and collaboration using Git/GitHub team workflow
 
 ## Screenshots
 
