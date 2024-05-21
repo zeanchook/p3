@@ -31,7 +31,7 @@ export default function CheckOutPage() {
 		};
 		fetchOrderDetails();
 	}, [user]);
-
+	console.log(orderDetails)
 	async function handlePlaceOrderClick() {
 		try {
 			if (!user) {
