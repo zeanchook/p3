@@ -12,8 +12,7 @@ router.post("/order/updateStatus", orderController.updateOrderStatus); //
 router.get("/getUserOrders/", [ensureLoggedIn], orderController.getUserOrders);
 // router.get("/:userId/orders", orderController.getUserOrdersById);
 
-//WL
-// router.get("/order/:orderId", orderController.getOrder);
+router.get("/order/:orderId", orderController.getOrder);
 // router.get("/getuseOrder/:userId", orderController.getUserOrders);
 
 router.get("/checkout/:orderId", orderController.getUserByOrderId);

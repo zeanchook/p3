@@ -37,11 +37,11 @@ console.log(user)
 
 const handleOrderClick = async (order) => {
 		try {
-			console.log('orderid', order);
+			// console.log('orderid', order);
 			const response = await fetch(`/api/orders/order/${order}`);
 			const data = await response.json();
 			setClickedOrder(data[data.findIndex(x=>x._id === order)]);
-			console.log('orderdata', clickedOrder);
+			// console.log('orderdata', clickedOrder);
 		} catch (error) {
 			console.error(error);
 		}
