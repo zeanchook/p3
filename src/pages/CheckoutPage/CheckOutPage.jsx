@@ -17,9 +17,9 @@ export default function CheckOutPage() {
 	}, [user]);
 
 	
-	/* 	useEffect(() => {
+		useEffect(() => {
 		setOrderDetails(currentcartItems);
-	}, [currentcartItems]); */
+	}, [currentcartItems]); 
 
 
 	/* 	useEffect(() => {
@@ -39,16 +39,16 @@ export default function CheckOutPage() {
 	}, [orderid]);
  */
 
-	useEffect(() => {
+/* 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 			try {
-				const url = `/api/orders/getUserOrders2/`;
+				const url = `/api/orders/getUserOrders/`;
 				const response = await fetch(url);
 				console.log('order details', response);
 				const data = await response.json();
 				console.log('data', data);
 				/* console.log(data.findIndex((x) => x._id === orderid)); */
-				setOrderDetails(data);
+	/* 			setOrderDetails(data);
 				console.log('Order Details', orderDetails);
 			} catch (error) {
 				console.error('Error fetching order details:', error);
@@ -56,7 +56,7 @@ export default function CheckOutPage() {
 		};
 		fetchOrderDetails();
 	}, [user]);
-
+ */ 
 	async function handlePlaceOrderClick() {
 		try {
 			if (!user) {

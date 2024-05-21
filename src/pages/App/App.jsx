@@ -46,7 +46,7 @@ function App() {
       <Route path="/product/:productId/" element={<ProductDetailsPage />}/>
       <Route path="/user/cart" element={<CartCheckOut />} />
       <Route path="/user/checkout" element={<CheckOutPage />}/>
-	<Route path="/user/:orderid/thankyou" element={<OrderConfirmationPage />}/>
+	<Route path="/user/thankyou" element={<OrderConfirmationPage />}/>
     </Routes>)
   }
 }
