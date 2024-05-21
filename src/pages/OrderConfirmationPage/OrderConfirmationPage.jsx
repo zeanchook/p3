@@ -1,16 +1,15 @@
 import { useLocation } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 export default function OrderConfirmationPage() {
 	const location = useLocation();
-	const { orderid } = useParams();
+
 	const { orderDetails, customerDetails } = location.state;
 
 	return (
 		<>
 			<h1>Thank You For Your Order, {customerDetails.name}!</h1>
 			<br></br>
-			<p>Your order ID: {orderid}</p>
+			<p>Your order ID: {orderDetails._id}</p>
 			<br></br>
 
 			<div>
