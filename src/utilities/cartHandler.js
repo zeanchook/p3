@@ -9,7 +9,18 @@ import { produce } from "immer";
 export const handleCart = async (type, cartState, quantity, productId) => {
   const orderLineFinder = finder(cartState, productId);
   console.log(orderLineFinder, cartState, quantity);
+
   if (orderLineFinder !== -1) {
+    const currentQty = cartState.orderLine[orderLineFinder].orderQty;
+    const newQty = currentQty + quantity;
+
+    if (newQty <= 0) {
+      alert(
+        "Quantity can't be zero or negative, removing the item from the cart",
+      );
+      return cartState;
+    }
+
     const nextState = produce(cartState, (draft) => {
       draft.orderLine[orderLineFinder].orderQty += quantity;
     });
@@ -24,6 +35,7 @@ export const handleCart = async (type, cartState, quantity, productId) => {
       product_id: productId,
       orderQty: quantity,
     };
+
     const nextState = produce(cartState, (draft) => {
       draft?.orderLine?.push(orderLine);
     });
