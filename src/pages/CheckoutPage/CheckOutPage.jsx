@@ -23,13 +23,8 @@ export default function CheckOutPage() {
 	useEffect(() => {
 		const fetchOrderDetails = async () => {
 			try {
-				const url = `/api/orders/getUserOrders/`;
-				const response = await fetch(url);
-				console.log('order details', response);
-				const data = await response.json();
-				console.log('data', data);
+				const data = await sendRequest(`/api/orders/getUserOrders/`, 'GET');
 				setOrderDetails(data);
-				console.log('Order Details', orderDetails);
 			} catch (error) {
 				console.error('Error fetching order details:', error);
 			}
