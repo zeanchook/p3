@@ -2,11 +2,15 @@ import { Link } from 'react-router-dom';
 import { useAtom, useAtomValue } from 'jotai';
 import { loginSts } from '../../atom';
 import { useNavigate } from 'react-router-dom';
+import { cartItems } from '../../atom';
 
 export default function NavBar() {
 	const userDetails = useAtomValue(loginSts);
 	const [user] = useAtom(loginSts);
 	const goTo = useNavigate();
+
+	const itemsinside = useAtomValue(cartItems);
+	console.log(itemsinside)
 
 	console.log(userDetails, user);
 
@@ -37,9 +41,9 @@ export default function NavBar() {
 			}}
 		>
 			<Link to="/">Title</Link>
-			<Link to="/home">Home</Link>
+			<Link to="/">Home</Link>
 			<Link to="/products">Product</Link>
-			<Link to="/user/cart">Cart</Link>
+			<Link to="/user/cart">Cart: {itemsinside.totalQty}</Link>
 			{/* <Link to="/auth">Login</Link> */}
 			<Authentication />
 		</ul>

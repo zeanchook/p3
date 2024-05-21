@@ -4,15 +4,21 @@ import { useAtom } from 'jotai';
 import { loginSts } from '../../../atom';
 import { logOut } from '../../utilities/users-service';
 import sendRequest from '../../utilities/send-request';
+import { useNavigate } from 'react-router-dom';
+import { cartItems } from '../../../atom';
 
 export default function UserProfile() {
 	const { name } = useParams();
 	const [userOrders, setUserOrders] = useState(null);
 	const [clickedOrder, setClickedOrder] = useState(null);
 	const [user, setUser] = useAtom(loginSts);
+	const [cartState,setCartState] = useAtom(cartItems);
 	/* const [userOrderDetails , setUserOrderDetails] = useState(null);
 	 */
 	//fetch orders under userId
+
+	console.log(cartState)
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchOrderIds = async () => {
@@ -29,7 +35,9 @@ export default function UserProfile() {
 
 
 	const handleLogOut = () => {
+		navigate("/")
 		logOut();
+		setCartState("")
 		setUser('');
 	};
 
