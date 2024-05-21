@@ -32,7 +32,12 @@ export const handleCart = async (type, cartState, quantity, productId) => {
       nextState.orderLine[orderLineFinder],
       nextState._id,
     );
-    console.log(updatedCart, nextState.orderLine[orderLineFinder], nextState);
+    console.log(
+      "this",
+      updatedCart,
+      nextState.orderLine[orderLineFinder],
+      nextState,
+    );
     return nextState;
   } else {
     const orderLine = {
