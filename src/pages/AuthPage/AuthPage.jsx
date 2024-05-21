@@ -11,7 +11,7 @@ export default function AuthPage() {
 
   console.log(user)
   return  <>
-  {state === "signup" ? <SignUpForm setUser={setUser} setLoginState={setLoginState}/> : 
-  <LoginForm setUser={setUser} setLoginState={setLoginState}/>}
+  {state === "login" ? <LoginForm setUser={setUser} setLoginState={setLoginState}/> :
+  <SignUpForm setUser={setUser} setLoginState={setLoginState}/>}
   </>;
 }

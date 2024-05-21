@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/';
 import AuthPage from '../AuthPage/AuthPage';
 import { useAtomValue } from 'jotai';
@@ -23,6 +23,7 @@ const log = debug('mern:pages:App:App');
 function App() {
 	const user = useAtomValue(loginSts);
 
+
 	log('user %o', user);
 
 
@@ -30,13 +31,18 @@ function App() {
 	if (!user) {
 		return (
 			<main className="App">
-				<AuthPage />
+				{/* <AuthPage /> */}
+				<Routes>
+					<Route path="/auth" element={<AuthPage />}/>	
+					<Route path="/" element={<HomePage />}/>
+					<Route path="/products" element={<ProductListingPage />}/>
+					<Route path="/product/:productId/" element={<ProductDetailsPage />}/>
+					<Route path="*" element={<Navigate to="/auth"  />} />
+				</Routes>
 			</main>
 		);
 	}
   else {
-	
-	
     return (
     <Routes>
 	<Route path="/admin" element={<AdminPage />}/>
@@ -47,6 +53,7 @@ function App() {
       <Route path="/user/cart" element={<CartCheckOut />} />
       <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />}/>
 	<Route path="/user/:orderid/thankyou" element={<OrderConfirmationPage />}/>
+	<Route path="*" element={<Navigate to="/"  />} />
     </Routes>)
   }
 }
@@ -54,8 +61,7 @@ function App() {
 
 	return (
 		<>
-			{/* replace if possible */}
-			<DataContext.Provider value={user}>
+			{/* <DataContext.Provider value={user}> */}
 				<NavBar />
 				<main
 					className="App"
@@ -69,7 +75,7 @@ function App() {
 				>
 					<MainAuth />
 				</main>
-			</DataContext.Provider>
+			{/* </DataContext.Provider> */}
 		</>
 	);
 }

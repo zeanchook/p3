@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddToCart from "../../components/AddToCart";
 import debug from "debug";
+// import { loginSts } from "../../../atom";
+// import { useAtomValue } from "jotai";
 
 const log = debug("mern:pages:ProductDetailsPage");
 
@@ -10,6 +12,8 @@ export default function ProductDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { productId } = useParams();
+
+
 
   useEffect(() => {
     async function loadProduct() {

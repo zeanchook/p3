@@ -1,8 +1,10 @@
 import { useState } from "react";
 // import debug from "debug";
 
-import {useAtom} from "jotai"
+import {useAtom,useAtomValue} from "jotai"
 import { cartItems } from "../../atom";
+import { loginSts } from "../../atom";
+import { useNavigate } from "react-router-dom";
 
 // import { getCartDetails } from "../utilities/cart-service"
 import { handleCart } from "../utilities/cartHandler";
@@ -11,8 +13,10 @@ import { handleCart } from "../utilities/cartHandler";
 
 export default function AddToCart({ productId }) {
   const [quantity, setQuantity] = useState(1);
-  // const userDetails = useAtomValue(loginSts);
   const [cartState,setCartState] = useAtom(cartItems);
+
+  const userDetails = useAtomValue(loginSts);
+  const navigate = useNavigate();
 
   function handleIncreaseQty() {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -27,7 +31,14 @@ export default function AddToCart({ productId }) {
 
 const handleAddToCart = async (event) =>
 {
-  setCartState(await handleCart(event.target.name,cartState,quantity,productId))
+  console.log(userDetails)
+  if(userDetails !== null || userDetails )
+  {
+    setCartState(await handleCart(event.target.name,cartState,quantity,productId))
+  }
+  else{
+    navigate("/auth")
+  }
 }
 
   return (

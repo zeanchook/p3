@@ -9,12 +9,11 @@ export default function HomePage() {
   const [cartState,setCartState] = useAtom(cartItems);
 
 
-
+  console.log(cartState)
   useEffect(() => {
     async function getDetails()
       {
         const cartItems = await sendRequest(`/api/orders/getUserOrders/`);
-        console.log(cartState)
         setCartState(cartItems);
       }
       getDetails();   
