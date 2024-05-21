@@ -36,7 +36,7 @@ export default function UserProfile() {
 		navigate("/")
 		logOut();
 		setCartState("")
-		setUser('');
+		setUser(null);
 	};
 
 console.log(user)
