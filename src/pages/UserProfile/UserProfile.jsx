@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { loginSts } from '../../../atom';
 import { logOut } from '../../utilities/users-service';
@@ -8,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { cartItems } from '../../../atom';
 
 export default function UserProfile() {
-	const { name } = useParams();
 	const [userOrders, setUserOrders] = useState(null);
 	const [clickedOrder, setClickedOrder] = useState(null);
 	const [user, setUser] = useAtom(loginSts);
@@ -31,7 +29,7 @@ export default function UserProfile() {
 		};
 
 		fetchOrderIds();
-	}, [name]);
+	}, [user]);
 
 
 	const handleLogOut = () => {
