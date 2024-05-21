@@ -4,7 +4,7 @@ import { getCartDetails } from "../../utilities/cart-service"
 import { useNavigate } from "react-router-dom";
 import {useAtom,useAtomValue} from "jotai"
 import { cartItems ,loginSts } from "../../../atom";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { handleCart,deleteCart } from "../../utilities/cartHandler";
 
 export default function CartCheckOut()
@@ -17,6 +17,7 @@ export default function CartCheckOut()
 
   const navigate = useNavigate();
   const [cartStates,setCartState] = useAtom(cartItems);
+  const [displayMsg, setDisplayMsg] = useState("");
   
   // log('user %o', userid);
 
@@ -30,6 +31,7 @@ export default function CartCheckOut()
     };
 
     const handleQty = async (event) => {
+      console.log(cartStates,event.target.value);
       setCartState(await handleCart("NA",cartStates,parseInt(event.target.value),event.target.name))
     }
 
@@ -46,52 +48,58 @@ export default function CartCheckOut()
             const finder = results?.findIndex(item => item.paidStatus === false)
             setCartState(results[finder]);
         }
-        console.log("here before")
+        // console.log("here before")
         getDetails();   
     }, [setCartState, userDetails._id]);
 
 
     const subtotal = (cartStates?.orderLine?.reduce((total, item) => total + item.product_id.price * item.orderQty, 0));
     
-    const DisplayItems = () =>
-    {
-        if(cartStates?.orderLine?.length === 0)
-        {
-          return ("Please at least add some item !")
-        }
-        return cartStates?.orderLine?.map((item, index) => (
-            <tr key={index} style={{ textAlign: "center" }}>
-              <td className="border-4 border-green-500/100">{index + 1}</td>
-              <td className="border-4 border-green-500/100">
-                <div style={{display:"flex",justifyContent:"center",maxWidth:"150px"}}>
-                  <img src={item.product_id.picture} className="" alt="img"></img>
-                </div>
-              </td>
-              <td className="border-4 border-green-500/100">{item.product_id.title}</td>
-              {/* <td className="border-4 border-green-500/100">{item.orderQty}</td> */}
-              <td className="border-4 border-green-500/100">
-              <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                <div style={{display:"flex",flexDirection:"row",width:"150px",justifyContent:"center"}}>
-                  <button onClick={handleQty} name={item.product_id._id} 
-                  className="border-slate-500 box-content h-2 w-2 p-2 border-2 text-center" value="1">+</button>
-                  <p className="border-2 border-y-indigo-950">{item.orderQty}</p>
-                  <button onClick={handleQty} className="border-2 border-slate-500" name={item.product_id._id} value="-1">-</button>
-                </div>
-                  <button onClick={handleRemove} name={item.product_id._id} >❌</button>
-              </div>
-              </td>
-              <td className="border-4 border-green-500/100">${(item.product_id.price  * item.orderQty).toFixed(2)}</td>
-            </tr>
-          ))
-    }
+    // const DisplayItems = () =>
+    // {
+    //     if(cartStates?.orderLine?.length === 0)
+    //     {
+    //       return ("Please at least add some item !")
+    //     }
+    //     return cartStates?.orderLine?.map((item, index) => (
+    //         <tr key={index} style={{ textAlign: "center" }}>
+    //           <td className="border-4 border-green-500/100">{index + 1}</td>
+    //           <td className="border-4 border-green-500/100">
+    //             <div style={{display:"flex",justifyContent:"center",maxWidth:"150px"}}>
+    //               <img src={item.product_id.picture} className="" alt="img"></img>
+    //             </div>
+    //           </td>
+    //           <td className="border-4 border-green-500/100">{item.product_id.title}</td>
+    //           {/* <td className="border-4 border-green-500/100">{item.orderQty}</td> */}
+    //           <td className="border-4 border-green-500/100">
+    //           <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+    //             <div style={{display:"flex",flexDirection:"row",width:"150px",justifyContent:"center"}}>
+    //               <button onClick={handleQty} name={item.product_id._id} 
+    //               className="border-slate-500 box-content h-2 w-2 p-2 border-2 text-center" value={[1,item.orderQty]} >+</button>
+    //               <p className="border-2 border-y-indigo-950">{item.orderQty}</p>
+    //               <button onClick={handleQty} className="border-2 border-slate-500" name={item.product_id._id} value={[-1,item.orderQty]}>-</button>
+    //             </div>
+    //               <button onClick={handleRemove} name={item.product_id._id} >❌</button>
+    //           </div>
+    //           </td>
+    //           <td className="border-4 border-green-500/100">${(item.product_id.price  * item.orderQty).toFixed(2)}</td>
+    //         </tr>
+    //       ))
+    // }
 
     const handleCheckout = () =>
     {
         //!navigate
-        navigate(`/user/${userid}/${cartStates._id}/checkout`)
-    }
-    console.log(DisplayItems)
-    console.log(cartStates);
+        if(cartStates.totalQty !== 0)
+        {
+          navigate(`/user/${userid}/${cartStates._id}/checkout`)
+        }
+        else{
+          setDisplayMsg("You can't check out ! There's no item in your cart!")
+        }
+      }
+    // console.log(DisplayItems)
+    // console.log(cartStates);
 
     const orderDetails = cartStates && cartStates?.orderLine?.map((item,idx) => 
         {
@@ -114,8 +122,10 @@ export default function CartCheckOut()
               <p className="mt-1 text-xs leading-5 text-gray-500" style={{display:"flex",justifyItems:"right",alignContent:"space-evenly"}}>
                 <button onClick={handleQty} name={item.product_id._id} 
                 className="border-0	border-black w-6 hover:bg-green-200 text-black" value="1">+</button>
+
                 <button onClick={handleQty} name={item.product_id._id} value="-1"
                 className="border-0	border-black w-6 hover:bg-red-200 text-black">-</button>
+
                 <button onClick={handleRemove} name={item.product_id._id} 
                 className="border-0	border-black w-6 hover:bg-sky-200 text-black">❌</button>
               </p>
@@ -135,38 +145,15 @@ export default function CartCheckOut()
     </ul>)
         })
 
-        console.log(orderDetails)
-    // style={style}
-    // return(
-    //   <div style={style}>
-    //   <h2>Your Cart</h2>
-    //   <table border="02" className="border-4 border-green-500/100">
-    //     <thead className="border-4 border-green-500/100">
-    //       <tr >
-    //         <th className="border-4 border-green-500/100">S/N</th>
-    //         <th className="border-4 border-green-500/100">Product</th>
-    //         <th className="border-4 border-green-500/100">Name</th>
-    //         <th className="border-4 border-green-500/100">Qty</th>
-    //         {/* <th className="border-4 border-green-500/100">Add/Remove</th> */}
-    //         <th className="border-4 border-green-500/100">Price</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody >
-    //       <DisplayItems/>
-    //     </tbody>
-    //   </table>
-    //   {subtotal && <p style={{border: "1px solid rgb(0, 0, 0)"}}>Subtotal: ${subtotal.toFixed(2)}</p>}
-    //   <button onClick={handleCheckout} className="rounded-lg border border-slate-300 hover:border-slate-400">Checkout</button>
-    // </div>
-    // )
-    return(<div style={style}>
+    return(
+      <div style={style}>
       <div style={{padding:"50px"}} className="text-4xl">Your Cart Summary 🛒</div>
-      {orderDetails}
-      {subtotal && <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-2xl font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 m-8">
-        Subtotal: $ {subtotal.toFixed(2)}
-      </span>}
-      {/* {subtotal && <p style={{border: "1px solid rgb(0, 0, 0)",margin:"50px"}}>Subtotal: ${subtotal.toFixed(2)}</p>} */}
+        {orderDetails}
+        {(displayMsg && <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-2xl font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 m-8">
+          Subtotal: $ {subtotal.toFixed(2)}
+        </span>)}
      <button onClick={handleCheckout} className="rounded-lg border border-slate-300 hover:border-slate-400 text-2xl" >Checkout</button>
+     <p>{displayMsg}</p>
     </div>)
     
 }

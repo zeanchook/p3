@@ -11,7 +11,9 @@ export const handleCart = async (type, cartState, quantity, productId) => {
   console.log(orderLineFinder, cartState, quantity);
   if (orderLineFinder !== -1) {
     const nextState = produce(cartState, (draft) => {
-      draft.orderLine[orderLineFinder].orderQty += quantity;
+      if (draft.orderLine[orderLineFinder].orderQty + quantity !== 0) {
+        draft.orderLine[orderLineFinder].orderQty += quantity;
+      }
     });
 
     const updatedCart = await updateCartDetails(

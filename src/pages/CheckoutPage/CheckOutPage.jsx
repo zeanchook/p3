@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import sendRequest from '../../utilities/send-request';
 
 
 export default function CheckOutPage() {
@@ -46,15 +47,18 @@ export default function CheckOutPage() {
 
 	async function handlePlaceOrderClick() {
 		try {
-			const response = await fetch(`/api/orders/${orderid}/${name}/paid`, {
-				method: 'PATCH',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({}),
-			});
-
-			if (!response.ok) {
-				throw new Error('Error updating order status');
-			}
+			// const response = await fetch(`/api/orders/${orderid}/${name}/paid`, {
+			// 	method: 'PATCH',
+			// 	headers: { 'Content-Type': 'application/json' },
+			// 	body: JSON.stringify({}),
+				
+			// });
+			await sendRequest(`/api/orders/${orderid}/paid`,"PATCH");
+			// console.log(response.ok)
+			// // sendRequest(`/api/orders/${orderid}/${name}/paid`,"PATCH")
+			// if (!response.ok) {
+			// 	throw new Error('Error updating order status');
+			// }
 
 			goToResults(`/user/${name}/${orderid}/thankyou`, {
 				state: {
@@ -66,7 +70,7 @@ export default function CheckOutPage() {
 			console.error('Error updating order details:', error);
 		}
 	}
-	console.log(orderDetails)
+
 	return (
 		<>
 			<div className="">
