@@ -1,11 +1,7 @@
-export const getCartDetails = async (userid) => {
-  //orderController.getOrder
-  //! to update route path folder
-  const url = `/api/orders/getuseOrder/${userid}`;
-  console.log(url);
-  const response = await fetch(url);
-  const myResults = await response.json();
-  return myResults;
+import sendRequest from "./send-request";
+
+export const getCartDetails = () => {
+  return sendRequest(`/api/orders/getUserOrders/`);
 };
 
 //update
@@ -20,7 +16,6 @@ export const updateCartDetails = async (body, orderId) => {
     body: JSON.stringify(body),
   });
   const cartDetail = await response.json();
-  // console.log(cartDetail);
   return cartDetail;
 };
 //create

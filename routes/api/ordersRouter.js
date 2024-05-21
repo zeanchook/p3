@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const orderController = require("../../controllers/api/orderController");
+const ensureLoggedIn = require("../../config/ensureLoggedIn");
 
 router.post("/update/:orderId/", orderController.updateOrder);
 router.post("/create/:orderId/", orderController.createOrderLine);
@@ -8,7 +9,7 @@ router.delete("/update/:orderId/", orderController.deleteOrder);
 
 router.get("/order", orderController.getOrder); //orders
 router.post("/order/updateStatus", orderController.updateOrderStatus); //
-router.get("/getuseOrder/:userId", orderController.getUserOrders); //
+router.get("/getUserOrders/", [ensureLoggedIn], orderController.getUserOrders);
 // router.get("/:userId/orders", orderController.getUserOrdersById);
 
 //WL
@@ -16,6 +17,10 @@ router.get("/getuseOrder/:userId", orderController.getUserOrders); //
 // router.get("/getuseOrder/:userId", orderController.getUserOrders);
 
 router.get("/checkout/:orderId", orderController.getUserByOrderId);
-router.patch("/:orderId/:userId/paid", orderController.updateOrderPaid);
+router.patch(
+  "/:orderId/paid",
+  [ensureLoggedIn],
+  orderController.updateOrderPaid,
+);
 
 module.exports = router;

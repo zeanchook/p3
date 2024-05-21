@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const storeUser = (req, res, user) => {
   res.locals.user = user;
+  // console.log(user,res.locals.user)
 };
 
 const getUser = (req, res) => {
@@ -11,10 +12,11 @@ const getUser = (req, res) => {
 const checkTokenMiddleware = (req, res, next) => {
   const header = req.get("Authorization") || "";
   const token = header.replace("Bearer ", "");
-
+  // console.log("header,token",header,token)
   try {
     const payload = jwt.verify(token, process.env.SECRET);
-    console.log(payload.user);
+    // console.log(payload.user);
+
     // res.locals.user = payload.user;
     storeUser(req, res, payload.user);
     next();

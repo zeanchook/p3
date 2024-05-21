@@ -1,5 +1,6 @@
 const Data = require("../../models/order");
 const { User } = require("../../models/user");
+const { getUser } = require("../../config/checkToken");
 
 const updateOrderStatus = async (req, res) => {
   console.log(req.body.orderStatus);
@@ -104,14 +105,14 @@ const getOrder = async (req, res) => {
 };
 
 const getUserOrders = async (req, res) => {
-  const { userId } = req.params;
+  const user = getUser(req, res);
+  const userId = user._id;
   console.log("this", userId);
   try {
     const User = await Data.Order.find({ user_id: userId }).populate({
       path: "orderLine.product_id",
       model: "Product",
     });
-    console.log("157", User);
 
     const findIndex = User.findIndex((items) => items.paidStatus === false);
 
@@ -149,8 +150,10 @@ const getUserByOrderId = async (req, res) => {
 };
 //updates the order and user data when place order button is pushed
 const updateOrderPaid = async (req, res) => {
-  const { orderId, userId } = req.params;
-  console.log(orderId, userId);
+  const { orderId } = req.params;
+  const usersss = getUser(req, res);
+  const userId = usersss._id;
+
   const updatedData = { paidStatus: true, orderStatus: "Paid", ...req.body };
 
   try {
