@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { loginSts } from '../../../atom';
 import { logOut } from '../../utilities/users-service';
+import sendRequest from '../../utilities/send-request';
 
 export default function UserProfile() {
 	const { name } = useParams();
@@ -16,8 +17,7 @@ export default function UserProfile() {
 	useEffect(() => {
 		const fetchOrderIds = async () => {
 			try {
-				const response = await fetch(`/api/user/${name}/orders`);
-				const data = await response.json();
+				const data = await sendRequest(`/api/user/orders`)
 				setUserOrders(data);
 			} catch (error) {
 				console.error(error);

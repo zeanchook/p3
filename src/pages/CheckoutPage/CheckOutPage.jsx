@@ -70,7 +70,7 @@ export default function CheckOutPage() {
 			console.error('Error updating order details:', error);
 		}
 	}
-	console.log(orderDetails)
+
 	return (
 		<>
 			<div className="">

@@ -1,6 +1,7 @@
 const Data = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { getUser } = require("../../config/checkToken");
 
 const createJWT = (user) =>
   jwt.sign({ user }, process.env.SECRET, { expiresIn: "1h" });
@@ -47,7 +48,10 @@ const userLogin = async (req, res) => {
 };
 
 const getUserOrdersById = async (req, res) => {
-  const { userId } = req.params;
+  // const { userId } = req.params;
+
+  const currentUser = getUser(req, res);
+  const userId = currentUser._id;
 
   try {
     const user = await Data.User.findById(userId, "orders");
