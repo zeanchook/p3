@@ -131,6 +131,35 @@ const getUserOrders = async (req, res) => {
     res.status(401).json({ error });
   }
 };
+
+const getUserOrders2 = async (req, res) => {
+  const user = getUser(req, res);
+  const userId = user._id;
+  console.log("this", userId);
+  try {
+    const User = await Data.Order.find({ user_id: userId }).populate({
+      path: "orderLine.product_id",
+      model: "Product",
+    });
+
+    const findIndex = User.findIndex((items) => items.paidStatus === false);
+
+    if (User.length === 0 || findIndex === -1) {
+      const newOrder = await Data.Order.create({});
+      newOrder.user_id = userId;
+      newOrder.save();
+      console.log("here?", newOrder);
+      res.status(201).json([newOrder]);
+    } else {
+      res.status(201).json(User);
+    }
+    // res.redirect(301, "new-url");
+  } catch (error) {
+    console.log("here is the err", error);
+    res.status(401).json({ error });
+  }
+};
+
 //get user id and details
 const getUserByOrderId = async (req, res) => {
   const { orderId } = req.params;
@@ -193,4 +222,5 @@ module.exports = {
   updateOrderPaid,
   // getUserOrdersById,
   updateOrderStatus,
+  getUserOrders2,
 };

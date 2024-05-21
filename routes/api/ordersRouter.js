@@ -10,6 +10,12 @@ router.delete("/update/:orderId/", orderController.deleteOrder);
 router.get("/order", orderController.getOrder); //orders
 router.post("/order/updateStatus", orderController.updateOrderStatus); //
 router.get("/getUserOrders/", [ensureLoggedIn], orderController.getUserOrders);
+
+router.get(
+  "/getUserOrders2/",
+  [ensureLoggedIn],
+  orderController.getUserOrders2,
+);
 // router.get("/:userId/orders", orderController.getUserOrdersById);
 
 router.get("/order/:orderId", orderController.getOrder);

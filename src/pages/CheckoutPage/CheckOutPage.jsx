@@ -53,7 +53,7 @@ export default function CheckOutPage() {
 			// 	body: JSON.stringify({}),
 				
 			// });
-			await sendRequest(`/api/orders/${orderid}/paid`,"PATCH")
+			await sendRequest(`/api/orders/${orderid}/paid`,"PATCH");
 			// console.log(response.ok)
 			// // sendRequest(`/api/orders/${orderid}/${name}/paid`,"PATCH")
 			// if (!response.ok) {
