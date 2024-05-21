@@ -12,11 +12,9 @@ export default function LoginForm({ setUser,setLoginState }) {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
     log("data: %o", data);
     const { email, password } = data;
     const user = await login(email, password);
-    console.log("user")
     setUser(user);
   };
 

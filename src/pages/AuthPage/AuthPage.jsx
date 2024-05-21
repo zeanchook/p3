@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAtom } from "jotai";
 import { loginSts } from "../../../atom";
 
+
 export default function AuthPage() {
   const [state, setLoginState] = useState("signup");
   const [user, setUser] = useAtom(loginSts);

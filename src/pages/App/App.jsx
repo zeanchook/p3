@@ -25,34 +25,32 @@ function App() {
 
 	log('user %o', user);
 
-	const MainAuth = () => {
-		if (!user) {
-			return (
-				<main className="App">
-					<AuthPage />
-				</main>
-			);
-		} else {
-			return (
-				<Routes>
-					<Route path="/admin" element={<AdminPage />} />
-					<Route path="/home" element={<HomePage />} />
-					<Route path="/products" element={<ProductListingPage />} />
-					<Route path="/user/" element={<UserProfile />} />
-					<Route path="/product/:productId/" element={<ProductDetailsPage />} />
-					<Route path="/user/cart" element={<CartCheckOut />} />
-					<Route
-						path="/user/checkout"
-						element={<CheckOutPage />}
-					/>
-					<Route
-						path="/user/:orderid/thankyou"
-						element={<OrderConfirmationPage />}
-					/>
-				</Routes>
-			);
-		}
-	};
+
+  const MainAuth = () => {
+	if (!user) {
+		return (
+			<main className="App">
+				<AuthPage />
+			</main>
+		);
+	}
+  else {
+	
+	
+    return (
+    <Routes>
+	<Route path="/admin" element={<AdminPage />}/>
+      <Route path="/" element={<HomePage />}/>
+      <Route path="/products" element={<ProductListingPage />}/>
+      <Route path="/user/:name" element={<UserProfile />}/>
+      <Route path="/product/:productId/" element={<ProductDetailsPage />}/>
+      <Route path="/user/cart" element={<CartCheckOut />} />
+      <Route path="/user/:name/:orderid/checkout" element={<CheckOutPage />}/>
+	<Route path="/user/:name/:orderid/thankyou" element={<OrderConfirmationPage />}/>
+    </Routes>)
+  }
+}
+
 
 	return (
 		<>

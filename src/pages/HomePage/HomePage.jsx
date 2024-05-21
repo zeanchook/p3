@@ -1,7 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 import PopularItems from "../../components/PopularItems";
+import { useEffect } from "react";
+import {useAtom} from "jotai"
+import { cartItems } from "../../../atom";
+import sendRequest from "../../utilities/send-request";
 
 export default function HomePage() {
+  const [cartState,setCartState] = useAtom(cartItems);
+
+
+
+  useEffect(() => {
+    async function getDetails()
+      {
+        const cartItems = await sendRequest(`/api/orders/getUserOrders/`);
+        console.log(cartState)
+        setCartState(cartItems);
+      }
+      getDetails();   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   return (
     <>
       <img

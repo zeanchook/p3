@@ -1,7 +1,6 @@
 import debug from "debug";
 import { Component } from "react";
 import { signUp } from "../../utilities/users-service";
-// import { useNavigate } from "react-router-dom";
 
 const log = debug("mern:components:SignUpForm");
 
@@ -17,7 +16,6 @@ export default class SignUpForm extends Component {
     confirm: "",
     error: ""
   };
-
 
 
   handleChange = (event) => {
