@@ -6,6 +6,16 @@ An E-commerce project developed by three software develpoers using MERN stack.
 
 ## User Stories
 
+- As a user, I can choose to be a guest or member (through signing up).
+- As a guest/member, I can view the homepage to learn more about the site.
+- As a guest/member, I want to be able to view a list of products.
+- As a guest/member, I want to be able to view details of a specific product.
+- As a member, I want to be able to add products to the shopping cart.
+- As a member, I want to be able to update the quantity of a product or remove it from my shopping cart.
+- As a member, I want to be able to place an order for the products in my shopping cart.
+- As a member, I want to be able to see when my order has been placed successfully.
+- As a member, I want to be able to view my order history.
+
 ## Wireframe
 
 [Figma](https://www.figma.com/board/fIRZaoCQJYpwJFw0BRjjk4/Project-3%3A-3D-Printing-Ecom-Site?node-id=0-1&t=9kn4G5qkOHLvyo00-0)
