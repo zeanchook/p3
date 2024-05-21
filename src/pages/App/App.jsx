@@ -40,7 +40,7 @@ function App() {
     return (
     <Routes>
 	<Route path="/admin" element={<AdminPage />}/>
-      <Route path="/home" element={<HomePage />}/>
+      <Route path="/" element={<HomePage />}/>
       <Route path="/products" element={<ProductListingPage />}/>
       <Route path="/user/:name" element={<UserProfile />}/>
       <Route path="/product/:productId/" element={<ProductDetailsPage />}/>

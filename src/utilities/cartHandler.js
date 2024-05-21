@@ -13,6 +13,7 @@ export const handleCart = async (type, cartState, quantity, productId) => {
     const nextState = produce(cartState, (draft) => {
       if (draft.orderLine[orderLineFinder].orderQty + quantity !== 0) {
         draft.orderLine[orderLineFinder].orderQty += quantity;
+        draft.totalQty += quantity;
       }
     });
 
@@ -29,6 +30,7 @@ export const handleCart = async (type, cartState, quantity, productId) => {
     };
     const nextState = produce(cartState, (draft) => {
       draft?.orderLine?.push(orderLine);
+      draft.totalQty += quantity;
     });
     const updatedCart = await createCartDetails(cartState._id, orderLine);
     console.log(nextState, updatedCart);
@@ -47,9 +49,10 @@ export const finder = (cartState, productId) => {
 export const deleteCart = (productId, cartStates) => {
   console.log(finder(cartStates, productId));
   const nextState = produce(cartStates, (draft) => {
+    draft.totalQty -=
+      cartStates.orderLine[finder(cartStates, productId)].orderQty;
     draft.orderLine.splice([finder(cartStates, productId)], 1);
   });
-  // console.log(nextState)
   deleteCartItem(productId);
   return nextState;
 };

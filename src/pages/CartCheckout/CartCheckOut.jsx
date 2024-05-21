@@ -31,7 +31,7 @@ export default function CartCheckOut()
     };
 
     const handleQty = async (event) => {
-      console.log(cartStates,event.target.value);
+      // console.log(cartStates,event.target.value);
       setCartState(await handleCart("NA",cartStates,parseInt(event.target.value),event.target.name))
     }
 
@@ -40,13 +40,15 @@ export default function CartCheckOut()
       setCartState(deleteCart(event.target.name,cartStates))
     }
 
-    console.log(cartStates);
+    // console.log(cartStates);
     useEffect(() => {
       async function getDetails()
         {
             let results = await getCartDetails(userDetails._id);
-            const finder = results?.findIndex(item => item.paidStatus === false)
-            setCartState(results[finder]);
+            console.log(results)
+            // const finder = results?.findIndex(item => item.paidStatus === false)
+            // console.log(finder)
+            setCartState(results);
         }
         // console.log("here before")
         getDetails();   
@@ -90,7 +92,7 @@ export default function CartCheckOut()
     const handleCheckout = () =>
     {
         //!navigate
-        if(cartStates.totalQty !== 0)
+        if(cartStates.orderLine.length !== 0)
         {
           navigate(`/user/${userid}/${cartStates._id}/checkout`)
         }
@@ -99,7 +101,7 @@ export default function CartCheckOut()
         }
       }
     // console.log(DisplayItems)
-    // console.log(cartStates);
+    console.log(cartStates);
 
     const orderDetails = cartStates && cartStates?.orderLine?.map((item,idx) => 
         {
@@ -149,7 +151,7 @@ export default function CartCheckOut()
       <div style={style}>
       <div style={{padding:"50px"}} className="text-4xl">Your Cart Summary 🛒</div>
         {orderDetails}
-        {(displayMsg && <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-2xl font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 m-8">
+        {((subtotal || displayMsg) && <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-2xl font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 m-8">
           Subtotal: $ {subtotal.toFixed(2)}
         </span>)}
      <button onClick={handleCheckout} className="rounded-lg border border-slate-300 hover:border-slate-400 text-2xl" >Checkout</button>
