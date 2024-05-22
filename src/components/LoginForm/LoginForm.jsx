@@ -7,6 +7,7 @@ const log = debug("mern:components:LoginForm");
 export default function LoginForm({ setUser,setLoginState }) {
   // const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [displayMsg, setdisplayMsg] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -16,7 +17,14 @@ export default function LoginForm({ setUser,setLoginState }) {
     log("data: %o", data);
     const { email, password } = data;
     const user = await login(email, password);
-    setUser(user);
+    if(user !== "error")
+    {
+      setUser(user);
+      setdisplayMsg("")
+    }
+    else{
+      setdisplayMsg("Invalid credentials ! ")
+    }
   };
 
   const handleAlert =() =>
@@ -133,6 +141,7 @@ export default function LoginForm({ setUser,setLoginState }) {
             Sign in
           </button>
         </div>
+        <p className="flex w-full justify-center text-red-700">{displayMsg}</p>
       </form>
 
       <p className="mt-10 text-center text-sm text-gray-500">
