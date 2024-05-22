@@ -35,7 +35,7 @@ export default class SignUpForm extends Component {
       this.props.setUser(user);
       //! to decide where to navigate
     } catch (error) {
-      this.setState({ error: "Sign Up Failed" });
+      this.setState({ error: "Sign Up Failed, Email already in use " });
     }
   };
 
@@ -183,7 +183,7 @@ export default class SignUpForm extends Component {
               />
             </div>
           </div>
-  
+          <p className="flex w-full justify-center text-red-700">{this.state.error}</p>
           <div>
             <button
               type="submit"
@@ -191,7 +191,9 @@ export default class SignUpForm extends Component {
             >
               Create Account
             </button>
+            
           </div>
+          
         </form>
   
         <p className="mt-10 text-center text-sm text-gray-500">
