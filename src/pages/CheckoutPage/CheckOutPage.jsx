@@ -62,10 +62,10 @@ export default function CheckOutPage() {
 
 	return (
 		<>
-			<div className="max-w-md mx-auto p-6">
-				<h2 className="text-xl font-semibold mb-4">Your Shipping Details</h2>
+			<div className="max-w-xl mx-auto w-full p-6 rounded-lg shadow-md text-center">
+				<h2 className="text-xl font-semibold mb-4 text-center">Your Shipping Details</h2>
 				{customerDetails && (
-					<table className="table-auto">
+					<table className="table-auto mx-auto">
 						<tbody>
 							<tr>
 								<td className="font-semibold text-left px-4">Name:</td>
@@ -85,7 +85,7 @@ export default function CheckOutPage() {
 			</div>
 			<hr className="border-black" />
 
-			<div className="max-w-xl mx-auto p-6 mt-12">
+			<div className="max-w-xl mx-auto p-6 mt-12 rounded-lg shadow-md">
 				<h2 className="text-xl font-semibold text-center mb-4">Cart Summary</h2>
 
 				<table className="table-auto">
