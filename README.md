@@ -1,10 +1,12 @@
-# E-commerce Application
+# 3D Printed Wonders - an ECommerce website for 3D Printed Products
 
 ## Introduction
 
-An E-commerce project developed by three software developers using MERN stack.
+3D Printed Wonders is an Ecommerce website selling 3D Printed items. This project is developed by three software developers using the MERN stack.
 
 ## User Stories
+
+These are the user stories that guided the development of our project:
 
 - As a user, I can choose to be a guest or member (through signing up).
 - As a guest/member, I can view the homepage to learn more about the site.
@@ -15,14 +17,6 @@ An E-commerce project developed by three software developers using MERN stack.
 - As a member, I want to be able to place an order for the products in my shopping cart.
 - As a member, I want to be able to see when my order has been placed successfully.
 - As a member, I want to be able to view my order history.
-
-## Wireframe
-
-[Figma](https://www.figma.com/board/fIRZaoCQJYpwJFw0BRjjk4/Project-3%3A-3D-Printing-Ecom-Site?node-id=0-1&t=9kn4G5qkOHLvyo00-0)
-
-## Project Planning
-
-Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
 
 ## Technologies and Tools Used
 
@@ -75,11 +69,65 @@ Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
 9. We made adjustments based on the instructor's feedback, mainly focusing on security and validation.
 10. We gave a final presentation of our project to the instructor and classmates, and answered questions.
 
+## Getting Started
+
+[Deployed App](https://p3-2g7d.onrender.com/)
+
+#### Pitch Deck
+
+[Pitch Deck](https://pitch.com/v/ai-3d-toys-transforming-ecommerce-experience-wvqm6e)
+
+#### Wireframe
+
+[Figma](https://www.figma.com/board/fIRZaoCQJYpwJFw0BRjjk4/Project-3%3A-3D-Printing-Ecom-Site?node-id=0-1&t=9kn4G5qkOHLvyo00-0)
+
+#### Project Planning
+
+[Trello](https://trello.com/b/8imCDxxA/project-3)
+
 ## Screenshots
 
-## [Getting Started](https://p3-2g7d.onrender.com/)
+Landing Page
 
-## Contributor:
+![Landing Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Landing%20Page.png)
+
+Login Page
+![Login Page](https://github.com/WAILENGL/3DWonders/blob/main/images/login%20page.png?raw=true)
+
+Signup Page
+![Signup Page](https://github.com/WAILENGL/3DWonders/blob/main/images/signuppage.png?raw=true)
+
+Products Listing Page
+![Products Listing Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Products%20Listing%20Page.png)
+
+Product Details Page
+![Product Details Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Product%20Page.png)
+
+Cart Page
+![Cart Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Cart%20Page.png?raw=true)
+
+Checkout Page
+![Checkout Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Checkout%20Page.png?raw=true)
+
+Order Confirmation Page
+![Order Confirmation Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Order%20Confirmation%20Page.png?raw=true)
+
+User Profile Page
+![User Profile Page](https://github.com/WAILENGL/3DWonders/blob/main/images/User%20Profile%20Page.png?raw=true)
+
+Admin Page
+![Admin Page](https://github.com/WAILENGL/3DWonders/blob/main/images/Admin%20page.png?raw=true)
+
+Admin Page - Create Product
+![Admin Page - Create Product](https://github.com/WAILENGL/3DWonders/blob/main/images/Admin%20Create%20Product.png?raw=true)
+
+Admin Page - View Orders
+![Admin Page - View Orders](https://github.com/WAILENGL/3DWonders/blob/main/images/Admin%20Order%20View.png?raw=true)
+
+Admin Page - Product Delete
+![Admin Page - Product Delete](https://github.com/WAILENGL/3DWonders/blob/main/images/Admin%20Product%20Delete.png?raw=true)
+
+## Contributors:
 
 [zeanchook](https://github.com/zeanchook)
 [WAILENGL](https://github.com/WAILENGL)
@@ -87,19 +135,23 @@ Public Board: [Trello](https://trello.com/b/8imCDxxA/project-3)
 
 ## Next Steps
 
-- Ranking System: Calculate popularity and rank the product according to popularity
-- Admin Page: Shop keeper can upload product details and manage order status
+- Ranking System: Calculate popularity and rank products according to popularity
+- Admin Pages: Further refine the admin CMS and order management pages
+- Introduce product options
 
 ## Experience Summary
 
-<!-- Share the experience:
-☐ What was your biggest challenge? (besides Team Git Workflow)
-
-☐ What are your key learnings/takeaways? -->
-
 #### zeanchook
 
-#### WAILENGL
+#### Wai-Leng
+
+Learning to work in a team as a software developer was both challenging and rewarding. Issues with Git Workflow were expected - this was a good learning experience on learning how to use git to facilitate development, and how conflicts can arise from multiple team members committing.
+
+The other key challenge was learning to communicate as a team, from scoping out the project to communicating when to commit, when to work on additional features and when to focus on the core project.
+
+However, the benefits of working in a team far outweighed the difficulties faced. Having team members to help troubleshoot areas I was having issues with was beneficial, in addition to expanding my perspectives and takeaways from the course material. Being able to draw on different experiences definitely helped with speeding up and enhancing development.
+
+I also gained a greater appreciation for the details that go into making a website functional and secure. Basic small functions that tend to be taken for granted, like adding items to cart and adjusting quantities for an ecommerce website, can require a lot of thought in implementation. This will likely help with planning in future projects.
 
 #### Miaoling Mai
 
