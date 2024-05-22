@@ -5,6 +5,7 @@ import { logOut } from '../../utilities/users-service';
 import sendRequest from '../../utilities/send-request';
 import { useNavigate } from 'react-router-dom';
 import { cartItems } from '../../../atom';
+import { getCartDetails } from '../../utilities/cart-service';
 
 export default function UserProfile() {
 	const [userOrders, setUserOrders] = useState(null);
@@ -31,6 +32,15 @@ export default function UserProfile() {
 		fetchOrderIds();
 	}, [user]);
 
+	useEffect(() => {
+		async function getDetails() {
+			let results = await getCartDetails();
+			setCartState(results);
+		}
+		// console.log("here before")
+		getDetails();
+	}, []);
+
 
 	const handleLogOut = () => {
 		navigate("/")
@@ -45,6 +55,7 @@ const handleOrderClick = async (order) => {
 		try {
 			// console.log('orderid', order);
 			const response = await fetch(`/api/orders/order/${order}`);
+			console.log(response);
 			const data = await response.json();
 			setClickedOrder(data[data.findIndex(x=>x._id === order)]);
 			// console.log('orderdata', clickedOrder);
