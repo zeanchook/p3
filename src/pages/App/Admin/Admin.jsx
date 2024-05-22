@@ -1,64 +1,51 @@
 import {useAtomValue} from "jotai"
 import { loginSts } from "../../../../atom";
 
-import { createProduct } from "../../../utilities/product-service";
-
 import { useState } from "react";
+
+import AdminCreateProduct from "../../AdminCreateProduct/AdminCreateProduct";
+import AdminViewOrder from "../../../components/AdminViewOrder/AdminViewOrder";
+import AdminDeleteProduct from "../../../components/AdminDeleteProduct/AdminDeleteProduct";
 
 export default function AdminPage()
 {
     const userDetails = useAtomValue(loginSts);
-    const { usertype } = userDetails
-    console.log(userDetails,usertype)
+    const { usertype } = userDetails;
 
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        price: '',
-        picture: ''
-      });
+    const [pageState, setPageState] = useState("")
 
-    const handleChange = (event) =>
+    const handleClick = (event) =>
     {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value,
-          });
+      if(event.target.name === "create")
+      {
+        setPageState(<AdminCreateProduct/>)
+      }
+      else if (event.target.name === "view"){
+        setPageState(<AdminViewOrder/>)
+      }
+      else if (event.target.name === "delete"){
+        setPageState(<AdminDeleteProduct/>)
+      }
+      
     }
 
-    const handleSubmit = (event) =>
-    {
-        event.preventDefault();
-        createProduct(formData)
-    }
+    // console.log(userDetails,usertype)
 
-    if(usertype !== "admin")
+    const AdminPage = () =>
     {
-        return(<h1>Sorry you have no access to this page!</h1>)
+      if(usertype !== "admin")
+      {
+          return(<h1>Sorry you have no access to this page!</h1>)
+      }
+      else{
+          return <div style={{display:"flex",flexDirection:"column"}}>Welcome Admin! Please select your option:
+            <button onClick={handleClick} name="create" className="border-2 border-rose-500">Create Product</button>
+            <button onClick={handleClick} name="delete" className="border-2 border-rose-500">Delete Product</button>
+            <button onClick={handleClick} name="view" className="border-2 border-rose-500">View User Order Status</button>
+          </div>
+      }
     }
+    
 
-    return(<div>
-        <form onSubmit={handleSubmit} style={{display:"flex",flexDirection:"column",justifyContent:"center",alignContent:"center"}}>
-        <label>
-          Title:
-          <input className="border-4 border-indigo-500/100" type="text" name="title" value={formData.title} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input  className="border-4 border-indigo-500/100" type="text" name="description" value={formData.description} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Price:
-          <input className="border-4 border-indigo-500/100" type="number" name="price" value={formData.price} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Picture:
-          <input className="border-4 border-indigo-500/100" type="text" name="picture" value={formData.picture} onChange={handleChange} />
-        </label>
-        <br />
-        <button type="submit" className="border-solid border-2 border-sky-500">Submit your product</button>
-      </form></div>)
+    return(<><AdminPage/><div style={{margin:"50px"}}>{pageState}</div></>)
 }

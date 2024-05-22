@@ -1,7 +1,7 @@
-import { getAllOrders } from "../../../utilities/order-service"
+import { getAllOrders } from "../../utilities/order-service";
 import { useState,useEffect } from "react";
 
-import { adminUserOrder } from "../../../../atom";
+import { adminUserOrder } from "../../../atom";
 
 import {useAtom} from "jotai"
 
@@ -49,7 +49,7 @@ export default function AdminViewOrder()
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5IKM8Na-LygFdA0PWsGZ4EgBtn00bhhp60zBTgXIr1g&s" alt="" />
             <div className="min-w-0 flex-auto">
               <p className="text-sm font-semibold leading-6 text-gray-900" onClick={handleClick} value={item._id}>Order Id: {item._id}</p>
-              <p className="mt-1 truncate text-xs leading-5 text-gray-500" value={item.user_id._id}>User: {item.user_id.name}</p>
+              <p className="mt-1 truncate text-xs leading-5 text-gray-500" value={item?.user_id?._id}>User: {item.user_id?.name}</p>
             </div>
           </div>
           <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
