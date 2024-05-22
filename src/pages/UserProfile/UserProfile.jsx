@@ -39,7 +39,7 @@ export default function UserProfile() {
 		}
 		// console.log("here before")
 		getDetails();
-	}, []);
+	}, [setCartState]);
 
 
 	const handleLogOut = () => {
@@ -49,7 +49,7 @@ export default function UserProfile() {
 		setUser(null);
 	};
 
-console.log(user)
+console.log(clickedOrder)
 
 const handleOrderClick = async (order) => {
 		try {
@@ -87,6 +87,7 @@ const handleOrderClick = async (order) => {
 							<th>Product</th>
 							<th>Quantity</th>
 							<th>Price</th>
+							<th>Order Status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -96,6 +97,7 @@ const handleOrderClick = async (order) => {
 									<td>{lineItem.product_id.title}</td>
 									<td>{lineItem.orderQty}</td>
 									<td>${lineItem.extPrice}</td>
+									<td>${clickedOrder.orderStatus}</td>
 								</tr>
 							))}
 					</tbody>
