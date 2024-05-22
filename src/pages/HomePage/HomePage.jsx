@@ -19,7 +19,7 @@ export default function HomePage() {
 	}, []);
 
 	return (
-		<>
+		<div style={{display:"flex",flexDirection:"column"}}>
 			<img
 				src="https://qhq1h9t6kkqlkwsy-13917519929.shopifypreview.com/cdn/shop/files/site-banner_1080x.jpg"
 				alt="Banner"
@@ -53,7 +53,7 @@ export default function HomePage() {
 			<div className="mt-10 text-center">
 				<PopularItems />
 			</div>
-		</>
+		</div>
 	);
 
 }
