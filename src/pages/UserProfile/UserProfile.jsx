@@ -106,6 +106,6 @@ const handleOrderClick = async (order) => {
 			</div>
 			<br></br>
 			<button onClick={handleLogOut}>Log Out</button>
-		</>
+		</> 
 	);
 }

@@ -19,15 +19,15 @@ export default function HomePage() {
   }, []);
 
   return (
-    <>
+    <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
       <img
         src="https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465254_1pN9MGrA831idD6zIBL7q8rnZZpUCQTy.jpg"
         alt="Banner"
       />
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           About Us:
-        </h1>
+        </h2>
 
         <p className="mt-4 text-xl text-gray-500">
           Welcome to TrendyHub, your number one source for the latest and
@@ -43,6 +43,6 @@ export default function HomePage() {
       </div>
       <hr />
       <PopularItems />
-    </>
+    </div>
   );
 }

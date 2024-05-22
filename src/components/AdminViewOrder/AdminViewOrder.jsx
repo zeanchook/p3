@@ -13,6 +13,7 @@ export default function AdminViewOrder()
     const navigate = useNavigate();
     const [currentViewOrder,setCurrentViewOrder] = useAtom(adminUserOrder);
     console.log(currentViewOrder)
+    console.log(orders)
     useEffect(() => {
 		const getDetails = async() => 
         {
@@ -55,9 +56,14 @@ export default function AdminViewOrder()
           <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
             <p className="text-sm leading-6 text-gray-900">Items in Cart: {item.totalQty}</p>
             {item.orderStatus !== "Delivered"? (
-              <p className="mt-1 text-xs leading-5 text-gray-500">
-                Status {item.orderStatus}
+              <div className="mt-1 flex items-center gap-x-1.5">
+              <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+                <div className="h-1.5 w-1.5 rounded-full bg-red-500" />
+              </div>
+              <p className="text-xs leading-5 text-gray-500">
+                {item.orderStatus}
               </p>
+              </div>
             ) : (
               <div className="mt-1 flex items-center gap-x-1.5">
                 <div className="flex-none rounded-full bg-emerald-500/20 p-1">
