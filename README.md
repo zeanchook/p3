@@ -153,6 +153,8 @@ However, the benefits of working in a team far outweighed the difficulties faced
 
 I also gained a greater appreciation for the details that go into making a website functional and secure. Basic small functions that tend to be taken for granted, like adding items to cart and adjusting quantities for an ecommerce website, can require a lot of thought in implementation. This will likely help with planning in future projects.
 
+I also learned a lot about how to design APIs and Endpoints to perform CRUD operations and secure a website with multiple users via authentication and proper routing.
+
 #### Miaoling Mai
 
 The biggest challenge in developing a project with the team is the Team Git Workflow. We need to maintain communication to align on what features each member is developing and approximately when they will complete their work. Frequent commits are necessary to reduce conflicts during the branch merge process.
