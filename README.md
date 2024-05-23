@@ -127,7 +127,7 @@ Admin Page - View Orders
 Admin Page - Product Delete
 ![Admin Page - Product Delete](https://github.com/WAILENGL/3DWonders/blob/main/images/Admin%20Product%20Delete.png?raw=true)
 
-## Contributors:
+## Contributors
 
 [zeanchook](https://github.com/zeanchook)
 [WAILENGL](https://github.com/WAILENGL)
@@ -142,6 +142,8 @@ Admin Page - Product Delete
 ## Experience Summary
 
 #### zeanchook
+
+Wokring as a team in a project is definitely rewarding experience. We came accross many obstacles and problems, but in a team we navigate through all these chanllenges through effectively communicate and collborations. We overcame individual challenges and shared knowledge when we're facing dificulties. This effort not only accelerate our project development but also broadened our underrstanding towards the apporach we're taking. This expreince has equiped me with the importance of planning and communication.
 
 #### Wai-Leng
 
