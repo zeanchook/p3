@@ -6,6 +6,7 @@ const orderLineSchema = new Schema(
     product_id: { type: Schema.Types.ObjectId, ref: "Product" },
     orderQty: { type: Number, required: true, default: 1, Min: 1 },
   },
+
   { toJSON: { virtuals: true } },
 );
 

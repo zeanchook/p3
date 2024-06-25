@@ -23,6 +23,7 @@ export default function AddToCart({ productId }) {
     setQuantity((prevQuantity) => prevQuantity + 1);
   }
   console.log(cartState);
+
   function handleDecreaseQty() {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
@@ -50,11 +51,19 @@ export default function AddToCart({ productId }) {
   }, [setCartState]);
 
   return (
-    <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <div className="text-lg font-medium text-gray-900" id="slide-over-title">
         Quantity
       </div>
-      <p className="text-gray-500 border-emerald-200 border-2 w-8 text-center">{quantity}</p>
+      <p className="text-gray-500 border-emerald-200 border-2 w-8 text-center">
+        {quantity}
+      </p>
       <button
         onClick={handleIncreaseQty}
         className="border-0	border-black w-6 hover:bg-green-200 text-black"
